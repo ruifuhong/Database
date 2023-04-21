@@ -21,8 +21,13 @@ create a Wu4Shan shopping website
 	* 團隊合作討論需求分析、ER Model、Relational Schema
 	* 每位成員都必須參與程式設計
 
+## ER Model
+請插入圖片
+格式
+	![name](path.png)
 
 ##References
+後期添加
 
 
 
