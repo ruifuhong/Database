@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Wu4Shan user page</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="css/style.css" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+	<style>
+		form {
+			text-align: center;
+			margin-top: 5px;
+		}
+
+		label {
+			display: block;
+			margin-bottom: 10px;
+			font-weight: bold;
+		}
+
+		select {
+			display: block;
+			margin: 0 auto;
+			padding: 10px;
+			font-size: 1rem;
+			border-radius: 5px;
+			border: 1px solid #ccc;
+			width: 200px;
+		}
+
+		input[type="submit"] {
+			display: block;
+			margin: 20px auto;
+			padding: 10px;
+			font-size: 1.2rem;
+			font-weight: bold;
+			background-color: #007bff;
+			border: none;
+			border-radius: 20px;
+			color: #fff;
+			cursor: pointer;
+		}
+
+		input[type="submit"]:hover {
+			background-color: #0062cc;
+		}
+	</style>
+	
+	
+	
+</head>
+
+
+  <body>
+<nav class="navbar navbar-expand-sm bg-light navbar-light">
+  <ul class="navbar-nav">
+	<a class="navbar-brand" href="#">Wu4Shan</a>
+		
+    <li class="nav-item">
+      <a class="nav-link" href="#">HOME</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="#">SHOP</a>
+    </li>
+  </ul>
+  <form class="form-inline ml-auto">
+	<button class="btn btn-outline-dark mr-sm-0" type="submit">log_out</button>
+  
+    <button class="btn btn-outline-dark ms-1" type="submit">
+	<i class="bi-cart-fill me-1"></i>
+	cart</button>
+  </form>
+</nav>
+
+
+
+</body>
+
+
+<body>
+	<form>
+		<label for="person_id">訂單編號：</label>
+		<select id="person_id" name="person_id">
+			<option value="1">001</option>
+			<option value="2">002</option>
+			<option value="3">003</option>
+			<option value="4">004</option>
+			<option value="5">005</option>
+		</select>
+		<label for="cloth_color">衣服顏色：</label>
+		<select id="cloth_color" name="cloth_color">
+			<option value="red">紅色</option>
+			<option value="blue">藍色</option>
+			<option value="green">綠色</option>
+			<option value="yellow">黃色</option>
+		</select>
+		<label for="cloth_type">衣服類型：</label>
+		<select id="cloth_type" name="cloth_type">
+			<option value="shirt">男裝</option>
+			<option value="jacket">女裝</option>
+			<option value="pants">童裝</option>
+		</select>
+		<input type="submit" value="提交">
+	</form>
+</body>
+</html>
