@@ -6,6 +6,7 @@ const methodOverride = require("method-override");
 const cors = require("cors");
 const mainRoute = require("./routes/main_route");
 const cityRoute = require("./routes/city_route");
+const homepageRoute = require("./routes/homepage_route");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -38,6 +39,7 @@ connection.query("SELECT 15 + 1 as solution", (err, rows, fields) => {
 
 app.use("/", mainRoute);
 app.use("/cities", cityRoute(connection));
+app.use("/homepage", homepageRoute(connection));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
