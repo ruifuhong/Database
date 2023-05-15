@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Register Page</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-sm bg-light navbar-light">
+      <ul class="navbar-nav">
+        <a class="navbar-brand" href="/">Wu4Shan</a>
+            
+        <li class="nav-item">
+          <a class="nav-link" href="/home">HOME</a>
+        </li>
+      </ul>
+    </nav>
+</body>
+    
+ 
+<body class="bg-dark">
+    <div class="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header bg-primary text-white text-center">
+                        <h3>註冊</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="/home" method="POST" onsubmit="return validateForm()">
+                            <div class="form-group">
+                                <label for="username">帳號*</label>
+                                <input type="text" class="form-control" id="username" name="username">
+                            </div>
+                            <div class="form-group">
+                                <label for="email">電子郵件*</label>
+                                <input type="email" class="form-control" id="email" name="email">
+                            </div>
+							<div class="form-group">
+                                <label for="real_name">真實姓氏(last_name)*</label>
+                                <input type="real_last_name" class="form-control" id="real_last_name" name="real_last_name">
+                            </div>
+							<div class="form-group">
+                                <label for="real_name">真實名字(first_name)*</label>
+                                <input type="real_first_name" class="form-control" id="real_first_name" name="real_first_name">
+                            </div>
+							<div class="form-group">
+                                <label for="address">地址*</label>
+                                <input type="address" class="form-control" id="address" name="address">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">密碼*</label>
+                                <input type="password" class="form-control" id="password" name="password">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirm-password">確認密碼*</label>
+                                <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block">註冊</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+<script>
+    function validateForm() {
+      var username = document.getElementById("username").value;
+      var email = document.getElementById("email").value;
+      var realLastName = document.getElementById("real_last_name").value;
+      var realFirstName = document.getElementById("real_first_name").value;
+      var address = document.getElementById("address").value;
+      var password = document.getElementById("password").value;
+      var confirmPassword = document.getElementById("confirm-password").value;
+    
+      if (username === "" || email === "" || realLastName === "" || realFirstName === "" || address === "" || password === "" || confirmPassword === "") {
+        alert("不能為空");
+        return false;
+      }
+    
+      return true;
+    }
+    </script>
+
+
+
+
+

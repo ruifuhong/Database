@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+  <html lang="zh-TW">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <link href="show_member.css" rel="stylesheet">
+    
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  </head>
+
+<body>
+  <nav class="navbar navbar-expand-sm bg-light navbar-light">
+    <ul class="navbar-nav">
+      <a class="navbar-brand" href="/">Wu4Shan</a>
+
+      <li class="nav-item">
+        <a class="nav-link" href="/home">HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">SHOP</a>
+      </li>
+    </ul>
+
+    <form class="form-inline ml-auto">
+      <button class="btn btn-outline-dark mr-sm-0" type="submit">person_id</button>
+      <button class="btn btn-outline-dark mr-sm-0" type="submit">log_out</button>
+
+      <button class="btn btn-outline-dark ms-1" type="submit">
+        <i class="bi-cart-fill me-1"></i>
+        cart</button>
+    </form>
+  </nav>
+
+</body>
+
+<body>
+
+  <body>
+    <div class="container mt-5">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Hi, <%= userId %></h2>
+        <span>上次取出資料: 2023-05-08 12:00:00</span>
+        <div class="d-flex">
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <button class="btn btn-primary record-button" type="button">購買紀錄</button>
+            </div>
+            <div class="col-md-6 mb-3">
+              <button class="btn btn-primary wishlist-button" type="button">願望清單</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col">
+      <div class="col-md-4 mb-3">
+        <label for="account-input">Account:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="account-input" value="user123" disabled>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="password-input">Password:</label>
+        <div class="input-group">
+          <input type="password" class="form-control" id="password-input" value="********" disabled required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary edit-button" type="button">
+			<i class="bi bi-pencil"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="firstname-input">First Name:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="firstname-input" value="John" disabled required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary edit-button" type="button">
+			<i class="bi bi-pencil"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="lastname-input">Last Name:</label>
+        <div class="input-group">
+          <input type="text" class="form-control" id="lastname-input" value="Doe" disabled required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary edit-button" type="button">
+			<i class="bi bi-pencil"></i></button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="address-input">Address:</label>
+        <div class="input-group">
+		<input type="text" id="address-input" class="form-control" placeholder="Enter your address" disabled required>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary edit-button" type="button">
+              <i class="bi bi-pencil"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-3">
+        <label for="join-date-input">Join Date:</label>
+        <div class="input-group">
+          <input type="date" id="join-date-input" class="form-control" disabled required >
+
+        </div>
+      </div>
+    </div>
+    
+  </form>
+</div>
+
+    </div>
+
+    </div>
+
+    <div class="jumbotron">
+      <h1>我不知道寫什麼</h1>
+      <p>Wu4Shan 是一個你值得信賴的網站</p>
+      <a class="btn btn-primary btn-lg" href="#" role="button">了解更多</a>
+
+    </div>
+
+
+	
+
+<script >
+// 获取所有需要编辑的输入框和编辑按钮
+const inputs = document.querySelectorAll('input[disabled][required]');
+const editButtons = document.querySelectorAll('.edit-button');
+
+// 为每个编辑按钮添加点击事件监听器
+editButtons.forEach(function(button) {
+    button.addEventListener('click', function() {
+      // 找到当前编辑按钮对应的输入框
+      const input = button.parentElement.previousElementSibling;
+      
+      // 将输入框的 disabled 属性设置为 false，required 属性设置为 true
+      input.disabled = false;
+      input.required = true;
+      
+      // 给输入框添加焦点
+      input.focus();
+    });
+  });
+
+// 为每个输入框添加失去焦点事件监听器
+  inputs.forEach(function(input) {
+    input.addEventListener('blur', function() {
+      // 将输入框的 disabled 属性设置为 true，required 属性设置为 false
+      input.disabled = true;
+      input.required = false;
+    });
+  });
+
+</script>
+
+	

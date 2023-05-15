@@ -5,8 +5,9 @@ const port = 3000;
 const methodOverride = require("method-override");
 const cors = require("cors");
 const mainRoute = require("./routes/main_route");
-const cityRoute = require("./routes/city_route");
+//const cityRoute = require("./routes/city_route");
 const homepageRoute = require("./routes/homepage_route");
+
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -37,9 +38,54 @@ connection.query("SELECT 15 + 1 as solution", (err, rows, fields) => {
   console.log("The solution is: ", rows[0].solution);
 });
 
-app.use("/", mainRoute);
-app.use("/cities", cityRoute(connection));
+app.use("/test", mainRoute);
 app.use("/homepage", homepageRoute(connection));
+
+
+
+const loginRoute = require("./routes/login_route");
+app.use("/login", loginRoute);
+
+
+const homeRoute = require("./routes/home_route");
+app.use("/", homeRoute(connection));
+app.use("/home", homeRoute(connection));
+
+
+const signupRoute = require("./routes/signup_route");
+app.use("/signup", signupRoute);
+
+
+
+const memberRouter = require('./routes/member_route');
+app.use('/member', memberRouter);
+
+
+app.post('/login', (req, res) => {
+  const { username, password } = req.body;
+  console.log('username:'+username);
+  console.log('password:'+password);
+  // 在这里进行用户名和密码的验证逻辑
+  if (username === 'user123' && password === '123') {
+    // 验证成功
+    const userId = 'user123';
+    res.redirect('/member/' + userId);
+  } else {
+    // 验证失败
+    const errorMessage = '用户名或密码错误'; // 错误信息
+    res.redirect('/login?error=' + encodeURIComponent(errorMessage));
+  }
+});
+
+
+
+
+
+
+
+
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
