@@ -3,7 +3,9 @@ const express = require("express");
 const app = express();
 const port = 3000;
 const methodOverride = require("method-override");
+const cors = require("cors");
 const mainRoute = require("./routes/main_route");
+const cityRoute = require("./routes/city_route");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -12,6 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 app.use(express.static("public"));
+app.use(cors());
 
 const connection = mysql.createConnection({
   host: process.env.HOST,
@@ -34,6 +37,7 @@ connection.query("SELECT 15 + 1 as solution", (err, rows, fields) => {
 });
 
 app.use("/", mainRoute);
+app.use("/cities", cityRoute(connection));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);
