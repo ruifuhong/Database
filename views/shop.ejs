@@ -8,13 +8,14 @@
 </head>
 <body>
     <% shops.forEach(item => { %>
-        <form method="POST" action="/shop/shopend" style="border: solid red 1px;">
+        <div id="hello" style="border: solid red 1px;">
             <h2><%= item.Product_id %></h2>
             <h1><%= item.Product_name %></h1>
             <h5><%= item.Price %></h5>
             <img style="height:100px;width:100px;" src="<%= item.Image %>" alt="no image">
             <button>加入</button>
-        </form>
+        </div>
     <% }) %>
 </body>
+<script src="../public/javascripts/shop.js"></script>
 </html>
