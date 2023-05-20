@@ -7,6 +7,8 @@ const cors = require("cors");
 const mainRoute = require("./routes/main_route");
 const cityRoute = require("./routes/city_route");
 const homepageRoute = require("./routes/homepage_route");
+const shopRoute = require("./routes/shop_route");
+const shopendRoute = require("./routes/shop_end_route");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -18,10 +20,10 @@ app.use(express.static("public"));
 app.use(cors());
 
 const connection = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
 });
 
 connection.connect((err) => {
@@ -38,6 +40,8 @@ connection.query("SELECT 15 + 1 as solution", (err, rows, fields) => {
 });
 
 app.use("/", mainRoute);
+app.use("/shopend", shopRoute(connection));
+app.use("/shop", shopRoute(connection));
 app.use("/cities", cityRoute(connection));
 app.use("/homepage", homepageRoute(connection));
 
