@@ -8,7 +8,6 @@ const mainRoute = require("./routes/main_route");
 const cityRoute = require("./routes/city_route");
 const homepageRoute = require("./routes/homepage_route");
 const shopRoute = require("./routes/shop_route");
-const shopendRoute = require("./routes/shop_end_route");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -40,7 +39,6 @@ connection.query("SELECT 15 + 1 as solution", (err, rows, fields) => {
 });
 
 app.use("/", mainRoute);
-app.use("/shopend", shopRoute(connection));
 app.use("/shop", shopRoute(connection));
 app.use("/cities", cityRoute(connection));
 app.use("/homepage", homepageRoute(connection));

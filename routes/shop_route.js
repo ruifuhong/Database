@@ -24,9 +24,28 @@ module.exports = (connection) => {
   // POST 路由處理表單提交至 /shopend
   router.post("/shopend", async (req, res) => {
     try {
-      // 在這裡處理表單提交的資料
-      console.log(req.body);
-      return res.render("shop_end");
+      const query =
+        "INSERT INTO trying (Product_id, Product_name, Storage_quantity, Price, Image, Category) VALUES (123, 'special', 10, 100, 'img01', 'KIDS')";
+
+      connection.query(query, (err, result) => {
+        if (err) {
+          console.error("Error inserting data into product_purchased:", err);
+          return res.status(500).send("Error occurred when inserting data");
+        }
+
+        if (result.affectedRows) {
+          console.log("Data inserted into product_purchased successfully");
+          return res.render("shop_end", {
+            Product_id: 1,
+            Color: "red",
+            Size: "m",
+            Category: "KIDS",
+          });
+        } else {
+          console.error("No rows affected");
+          return res.status(500).send("Error occurred when inserting data");
+        }
+      });
     } catch (e) {
       return res.status(400).send(e.message);
     }
