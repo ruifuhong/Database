@@ -11,6 +11,7 @@ const cityRoute = require("./routes/city_route");
 const homepageRoute = require("./routes/homepage_route");
 const shopRoute = require("./routes/shop_route");
 const insertRoute = require("./routes/insert_route");
+const orderRoute = require("./routes/order_route");
 require("dotenv").config();
 
 app.set("view engine", "ejs");
@@ -47,6 +48,7 @@ app.use("/shop", shopRoute(connection));
 app.use("/cities", cityRoute(connection));
 app.use("/homepage", homepageRoute(connection));
 app.use("/insert", insertRoute(connection));
+app.use("/order", orderRoute(connection));
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

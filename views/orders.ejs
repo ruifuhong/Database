@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wu4Shan Demo</title>
+</head>
+<body>
+    <% orders.forEach(order => { %>
+        <div>
+            <h2><%= order.Product_id %></h2>
+            <h1><%= order.Product_name %></h1>
+            <h5><%= order.Price %></h5>
+            <img style="height:100px;width:100px;" src="<%= order.Image %>" alt="no image">
+            <button>刪除</button>
+        </div>
+    <% }) %>
+</body>
+</html>
