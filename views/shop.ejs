@@ -8,11 +8,11 @@
 </head>
 <body>
     <% shops.forEach(item => { %>
-        <div id="hello" style="border: solid red 1px;">
-            <h2><%= item.Product_id %></h2>
-            <h1><%= item.Product_name %></h1>
-            <h5><%= item.Price %></h5>
-            <img style="height:100px;width:100px;" src="<%= item.Image %>" alt="no image">
+        <div class="section" style="border: solid red 1px;">
+            <h2 class="product_id""><%= item.Product_id %></h2>
+            <h1 class="product_name"><%= item.Product_name %></h1>
+            <h5 class="product_price"><%= item.Price %></h5>
+            <img class="image" style="height:100px;width:100px;" src="<%= item.Image %>" alt="no image">
             <button>加入</button>
         </div>
     <% }) %>

@@ -17,6 +17,7 @@ module.exports = (connection) => {
     const { productId, productName, productPrice, productImage } = req.body;
 
     try {
+      console.log("阿哈哈");
       const sql = `INSERT INTO final.trying (Product_id, Product_name, Storage_quantity, Price, Image, Category) VALUES (?, ?, 5, ?, ?, 'KID')`;
       const values = [productId, productName, productPrice, productImage];
 
