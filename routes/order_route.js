@@ -36,5 +36,26 @@ module.exports = (connection) => {
     }
   });
 
+  router.patch("/:productId", (req, res) => {
+    const { productId } = req.body;
+    const { quantity } = req.body;
+
+    try {
+      const sql = `UPDATE trying SET Quantity = ? WHERE Product_id = ?`;
+      const values = [quantity, productId];
+
+      connection.query(sql, values, (error, results) => {
+        if (error) {
+          console.error("更新數量時發生錯誤:", error);
+          res.status(500).json({ message: "更新數量失敗" });
+        } else {
+          res.json({ message: `成功更新 ID 為 ${productId} 的數量` });
+        }
+      });
+    } catch (e) {
+      return res.status(400).send("error occurred when updating the quantity");
+    }
+  });
+
   return router;
 };
