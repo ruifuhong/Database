@@ -32,7 +32,7 @@
                         <h3>註冊</h3>
                     </div>
                     <div class="card-body">
-                        <form action="/home" method="POST" onsubmit="return validateForm()">
+                        <form action="/signup" method="POST" onsubmit="return validateForm()">
                             <div class="form-group">
                                 <label for="username">帳號*</label>
                                 <input type="text" class="form-control" id="username" name="username">
@@ -43,11 +43,11 @@
                             </div>
 							<div class="form-group">
                                 <label for="real_name">真實姓氏(last_name)*</label>
-                                <input type="real_last_name" class="form-control" id="real_last_name" name="real_last_name">
+                                <input type="text" class="form-control" id="real_last_name" name="lastName">
                             </div>
 							<div class="form-group">
                                 <label for="real_name">真實名字(first_name)*</label>
-                                <input type="real_first_name" class="form-control" id="real_first_name" name="real_first_name">
+                                <input type="text" class="form-control" id="real_first_name" name="firstName">
                             </div>
 							<div class="form-group">
                                 <label for="address">地址*</label>
@@ -59,7 +59,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="confirm-password">確認密碼*</label>
-                                <input type="password" class="form-control" id="confirm-password" name="confirm-password">
+                                <input type="password" class="form-control" id="confirm-password" name="confirmPassword">
                             </div>
                             <button type="submit" class="btn btn-primary btn-block">註冊</button>
                         </form>

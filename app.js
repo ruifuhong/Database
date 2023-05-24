@@ -52,7 +52,7 @@ app.use("/", homeRoute(connection));
 app.use("/home", homeRoute(connection));
 
 
-const signupRoute = require("./routes/signup_route");
+const signupRoute = require("./routes/signup_route")(connection);
 app.use("/signup", signupRoute);
 
 

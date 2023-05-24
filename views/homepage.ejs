@@ -17,3 +17,13 @@
     <% }) %>
 </body>
 </html>
+<script>
+    // 获取 URL 查询参数中的消息内容
+    const urlParams = new URLSearchParams(window.location.search);
+    const message = urlParams.get("message");
+  
+    // 如果存在消息内容，则显示弹框
+    if (message) {
+      alert(message);
+    }
+  </script>
