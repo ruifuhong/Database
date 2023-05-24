@@ -4,6 +4,25 @@ sections.forEach((section) => {
   const productName = section.querySelector(".product_name");
   const productPrice = section.querySelector(".product_price");
   const productImage = section.querySelector(".image").getAttribute("src");
+  const minusButton = section.querySelector(".minus");
+  const addButton = section.querySelector(".add");
+  const quantityDiv = section.querySelector(".quantity");
+
+  minusButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    let quantity = parseInt(quantityDiv.innerText);
+    if (quantity > 0) {
+      quantity--;
+      quantityDiv.innerText = quantity.toString();
+    }
+  });
+
+  addButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    let quantity = parseInt(quantityDiv.innerText);
+    quantity++;
+    quantityDiv.innerText = quantity.toString();
+  });
 
   section.addEventListener("click", () => {
     const data = {

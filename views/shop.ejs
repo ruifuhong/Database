@@ -13,6 +13,12 @@
             <h1 class="product_name"><%= item.Product_name %></h1>
             <h5 class="product_price"><%= item.Price %></h5>
             <img class="image" style="height:100px;width:100px;" src="<%= item.Image %>" alt="no image">
+            <div style="display:flex">
+              <div>數量</div>
+                <div class="minus" style="color: red; cursor: pointer">減少</div>
+                  <div class="quantity">1</div>
+                <div class="add" style="color: red; cursor: pointer">增加</div>
+              </div>
             <button>加入</button>
         </div>
     <% }) %>
