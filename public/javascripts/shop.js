@@ -28,6 +28,7 @@ sections.forEach((section) => {
     const data = {
       productId: productId.innerText,
       productName: productName.innerText,
+      quantity: quantityDiv.innerText,
       productPrice: productPrice.innerText,
       productImage: productImage,
     };

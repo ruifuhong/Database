@@ -3,12 +3,20 @@ const router = express.Router();
 
 module.exports = (connection) => {
   router.post("/", (req, res) => {
-    const { productId, productName, productPrice, productImage } = req.body;
+    console.log(req.body);
+    const { productId, productName, quantity, productPrice, productImage } =
+      req.body;
 
     try {
       console.log("阿哈哈");
-      const sql = `INSERT INTO final.trying (Product_id, Product_name, Storage_quantity, Price, Image, Category) VALUES (?, ?, 5, ?, ?, 'KID')`;
-      const values = [productId, productName, productPrice, productImage];
+      const sql = `INSERT INTO final.trying (Product_id, Product_name, Quantity, Price, Image, Category) VALUES (?, ?, ?, ?, ?, 'KID')`;
+      const values = [
+        productId,
+        productName,
+        quantity,
+        productPrice,
+        productImage,
+      ];
 
       connection.query(sql, values, (error, results) => {
         if (error) {
