@@ -57,7 +57,7 @@ app.use("/signup", signupRoute);
 
 
 
-const memberRouter = require('./routes/member_route');
+const memberRouter = require('./routes/member_route')(connection);
 app.use('/member', memberRouter);
 
 
@@ -80,7 +80,8 @@ app.post('/login', (req, res) => {
 
 
 
-
+//INSERT INTO final.customer (Username, Password, First_name, Last_name, Joined_since, Address)
+//VALUES ('user123', '$10$nkbf4g5I3e3tfHKHmfp8xegSJWHdkLpB30ULEyENa2dyvhirg5TkS', 'WU', '4_3', '2023-05-08', '動物園');
 
 
 

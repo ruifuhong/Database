@@ -1,13 +1,35 @@
 const express = require("express");
 const router = express.Router();
+module.exports = (connection) => {
+  router.get("/:userId", (req, res) => {
+    try {
+      const userId = req.params.userId;
 
-router.get("/:userId", (req, res) => {
-  // 从URL参数中获取userId
-  const userId = req.params.userId;
-  // 在此处可以执行相应的逻辑，例如从数据库中获取用户信息
+      connection.query(
+        "SELECT * FROM final.customer WHERE Username = ?",
+        [userId],
+        (err, results) => {
+          if (err) {
+            console.log('userId,err',userId)
+            console.error("從數據庫獲取用戶信息時發生錯誤:", err);
+            return res.status(500).send("從數據庫獲取用戶信息時發生錯誤");
+          }
 
-  // 渲染用户个人页面，并将userId传递给ejs模板
-  res.render("member", { userId: userId });
-});
+          if (results.length === 0) {
+            console.log('userId,results.length',userId)
+            return res.status(404).send("用戶不存在");
+          }
 
-module.exports = router;
+          const user = results[0];
+
+          return res.render("member", { userId, user });
+        }
+      );
+    } catch (e) {
+      console.error("從數據庫獲取用戶信息時發生錯誤:", e);
+      return res.status(500).send("從數據庫獲取用戶信息時發生錯誤");
+    }
+  });
+  return router;
+};
+
