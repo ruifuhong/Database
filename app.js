@@ -9,7 +9,7 @@ const cors = require("cors");
 const mainRoute = require("./routes/main_route");
 const cityRoute = require("./routes/city_route");
 const homepageRoute = require("./routes/homepage_route");
-// const shopRoute = require("./routes/shop_route");
+const shopRoute = require("./routes/shop_route");
 const insertRoute = require("./routes/insert_route");
 const orderRoute = require("./routes/order_route");
 require("dotenv").config();
@@ -44,7 +44,7 @@ connection.query("SELECT 15 + 1 as solution", (err, rows, fields) => {
 });
 
 app.use("/", mainRoute);
-// app.use("/shop", shopRoute(connection));
+app.use("/shop", shopRoute(connection));
 app.use("/cities", cityRoute(connection));
 app.use("/homepage", homepageRoute(connection));
 app.use("/insert", insertRoute(connection));
