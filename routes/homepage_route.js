@@ -6,6 +6,7 @@ module.exports = (connection) => {
     try {
       connection.query("SELECT * FROM final.trying", (err, items, fields) => {
         if (err) {
+          console.log(err)
           return res.status(500).send("error occurred when searching the data");
         }
         return res.render("homepage", { items });

@@ -11,6 +11,10 @@ require("dotenv").config();
 
 app.set("view engine", "ejs");
 
+app.get("/member/:id/order",(req,res) =>{
+  res.render('order');
+});
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
@@ -18,10 +22,10 @@ app.use(express.static("public"));
 app.use(cors());
 
 const connection = mysql.createConnection({
-  host: process.env.HOST,
-  user: process.env.USER,
-  password: process.env.PASSWORD,
-  database: process.env.DATABASE,
+  host:'localhost',
+  user: 'root',
+  password:'wenyi030421',
+  database:'final',
 });
 
 connection.connect((err) => {
