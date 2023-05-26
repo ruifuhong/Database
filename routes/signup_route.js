@@ -12,8 +12,9 @@ module.exports = (connection) => {
 
   router.post("/", async (req, res) => {
     console.log(req.body)
-    const { username, email, lastName, firstName, address, password, confirmPassword } = req.body;
-    console.log( username, email, lastName, firstName, address, password, confirmPassword)
+    const { username, lastName, firstName, address, password, confirmPassword } = req.body;
+    //const { username, email, lastName, firstName, address, password, confirmPassword } = req.body;
+    console.log( username, lastName, firstName, address, password, confirmPassword)
     try {
       // 检查密码和确认密码是否匹配
       if (password !== confirmPassword) {
