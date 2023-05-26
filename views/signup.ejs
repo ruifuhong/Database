@@ -21,7 +21,17 @@
             </li>
         </ul>
     </nav>
+
+    <div id="error-message" class="error-text" style="color: red; text-align: center;">
+        <% if (errorMessage) { %>
+            <%= errorMessage %>
+        <% } %>
+    </div>
+
 </body>
+
+
+
 
 
 <body class="bg-dark">

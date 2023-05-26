@@ -7,7 +7,7 @@ const bcrypt = require("bcrypt");
 module.exports = (connection) => {
 
   router.get("/", (req, res) => {
-    res.render("signup");
+    res.render("signup", { errorMessage: "" });
   });
 
   router.post("/", async (req, res) => {
@@ -18,7 +18,10 @@ module.exports = (connection) => {
     try {
       // 检查密码和确认密码是否匹配
       if (password !== confirmPassword) {
-        return res.status(400).json({ message: "密码和确认密码不匹配" });
+        console.error("密码和确认密码不匹配", error);
+        res.render("signup", { errorMessage: "密码和确认密码不匹配 "});
+        //return res.status(400).json({ message: "密码和确认密码不匹配" });
+         res.redirect("/signup?errorMessage=密码和确认密码不匹配");
       }
 
       // 生成密码的哈希值
@@ -30,9 +33,12 @@ module.exports = (connection) => {
       connection.query(sql, values, (error, results) => {
         if (error) {
           console.error("插入数据失败:", error);
+          res.render("signup", { errorMessage: "插入数据失败" });
+          //return res.status(500).json({ message: "注册失败" });
+           res.redirect("/signup?errorMessage=插入数据失败");
 
-          res.status(500).json({ message: "注册失败" });
-          res.redirect("/signup");
+
+
         } else {
           console.log("注册成功");
           //res.json({ message: "注册成功" });
@@ -42,8 +48,9 @@ module.exports = (connection) => {
       });
     } catch (e) {
       console.error("注册失败:", e);
-      res.status(500).json({ message: "注册失败" });
-      res.redirect("/signup");
+      res.render("signup", { errorMessage: "注册失败" });
+      //return res.status(500).json({ message: "注册失败" });
+       res.redirect("/signup?errorMessage=注册失败");
     }
   });
 
