@@ -8,7 +8,7 @@ const Categories = () => {
     const navigate = useNavigate();
     const getProduct = async (category) => {
         try {
-            await axios.get(`${baseUrl}/product`, {
+            const data = await axios.get(`${baseUrl}/product`, {
                 params: category ? { category } : {},
                 headers: { Authorization: localStorage.getItem("auth") },
             });
