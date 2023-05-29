@@ -58,7 +58,9 @@ const Login = () => {
                                 </button>
                             </div>
                             <div className="card-footer text-center">
-                                <a href="#">忘記密碼？</a>
+                                <a href="" onClick={() => navigate("/signup")}>
+                                    Regist
+                                </a>
                             </div>
                         </div>
                     </div>
