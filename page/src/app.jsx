@@ -2,6 +2,7 @@ import Order from "./routes/order";
 import Categories from "./routes/category";
 import Login from "./routes/login";
 import SingUp from "./routes/signup";
+import Member from "./routes/member";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 const App = () => {
