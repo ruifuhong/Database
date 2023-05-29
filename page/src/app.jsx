@@ -15,6 +15,10 @@ const App = () => {
                     </a>
                     <div className="collapse navbar-collapse" id="navbarSupportedContent">
                         <form className="d-flex">
+                        <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/member")}>
+                                id
+                                <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                            </button>
                             <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/order")}>
                                 <i className="bi-cart-fill me-1"></i>
                                 Cart
@@ -29,7 +33,9 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/category" element={<Categories />} />
+                <Route path="/member" element={<Member />} />
                 <Route path="/*" element={<Login />} />
+                
             </Routes>
             <footer className="bg-light text-center py-3">
                 <div className="container">
