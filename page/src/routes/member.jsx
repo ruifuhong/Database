@@ -27,6 +27,35 @@ const Member = () => {
         getMember();
     }, []);
 
+    //javascript chatgpt
+    useEffect(() => {
+        const uploadButton = document.getElementById("upload-button");
+        const lastUpdatedSpan = document.getElementById("last-updated");
+      
+        const updateLastUpdatedTime = () => {
+          const currentDate = new Date();
+          const formattedDate = currentDate.toLocaleDateString("zh-TW", { year: "numeric", month: "2-digit", day: "2-digit" });
+          const formattedTime = currentDate.toLocaleTimeString("zh-TW", { hour: "numeric", minute: "numeric", second: "numeric" });
+      
+          lastUpdatedSpan.textContent = `上次取出資料: ${formattedDate} ${formattedTime}`;
+        };
+      
+        const handleUploadButtonClick = () => {
+          const currentTime = new Date().toLocaleString();
+          lastUpdatedSpan.textContent = "上次取出資料: " + currentTime;
+        };
+      
+        uploadButton.addEventListener("click", handleUploadButtonClick);
+      
+        updateLastUpdatedTime();
+      
+        return () => {
+          // 清除事件監聽器，避免記憶體洩漏
+          uploadButton.removeEventListener("click", handleUploadButtonClick);
+        };
+      }, []);
+
+
 
 
     return (
@@ -134,59 +163,7 @@ const Member = () => {
                 </div>
     
                 <script>
-                    {
-  // 获取所有需要编辑的输入框和编辑按钮
-  const inputs = document.querySelectorAll('input[disabled][required]');
-  const editButtons = document.querySelectorAll('.edit-button');
-
-  // 为每个编辑按钮添加点击事件监听器
-  editButtons.forEach(function(button) {
-    button.addEventListener('click', function() {
-      // 找到当前编辑按钮对应的输入框
-      const input = button.parentElement.previousElementSibling;
-      
-      // 将输入框的 disabled 属性设置为 false，required 属性设置为 true
-      input.disabled = false;
-      input.required = true;
-      
-      // 给输入框添加焦点
-      input.focus();
-    });
-  });
-
-  // 为每个输入框添加失去焦点事件监听器
-  inputs.forEach(function(input) {
-    input.addEventListener('blur', function() {
-      // 将输入框的 disabled 属性设置为 true，required 属性设置为 false
-      input.disabled = true;
-      input.required = false;
-    });
-  });
-
-  document.getElementById("upload-button").addEventListener("click", function() {
-    var currentTime = new Date().toLocaleString();
-    document.getElementById("last-updated").textContent = "上次取出資料: " + currentTime;
-  });
-
-  const lastUpdatedSpan = document.getElementById('last-updated');
-
-  // Function to update the last updated time
-  function updateLastUpdatedTime() {
-    // Get the current date and time
-    const currentDate = new Date();
-
-    // Format the date and time as desired (adjust to your needs)
-    const formattedDate = currentDate.toLocaleDateString('zh-TW', { year: 'numeric', month: '2-digit', day: '2-digit' });
-    const formattedTime = currentDate.toLocaleTimeString('zh-TW', { hour: 'numeric', minute: 'numeric', second: 'numeric' });
-
-    // Set the content of the <span> element to display the current date and time
-    lastUpdatedSpan.textContent = `上次取出資料: ${formattedDate} ${formattedTime}`;
-  }
-
-  // Call the function to update the last updated time initially
-  updateLastUpdatedTime();
-
-}
+                    {/* 在這裡插入您的JavaScript程式碼 */}
                 </script>
             </div>
         </>
