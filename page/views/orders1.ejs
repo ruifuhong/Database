@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wu4Shan Demo</title>
+</head>
+<body>
+    <% orders.forEach(order => { %>
+        <div class="section">
+            <h2 class="product_id"><%= order.Product_id %></h2>
+            <h1 class="product_name"><%= order.Product_name %></h1>
+            <h5 class="product_price"><%= order.Price %></h5>
+            <img class="image" style="height:100px;width:100px;" src="<%= order.Image %>" alt="no image">
+            <div style="display:flex">
+                <div>數量</div>
+                  <div class="order-minus" style="color: red; cursor: pointer">減少</div>
+                    <div class="order-quantity"><%= order.Quantity %></div>
+                  <div class="order-add" style="color: red; cursor: pointer">增加</div>
+              </div>
+            <button>刪除</button>
+        </div>
+    <% }) %>
+</body>
+<script src="../public/javascripts/orders.js"></script>
+</html>

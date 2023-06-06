@@ -1,0 +1,44 @@
+version: '3.0'
+
+services:
+  api:
+    build:
+      context: ./apis
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      - "./apis/:/usr/src/"
+      - /usr/src/node_modules
+    env_file:
+      - .env
+    ports:
+      - 1337:3000
+  page:
+    build:
+      context: ./page
+      dockerfile: ./Dockerfile
+    restart: always
+    volumes:
+      - "./page/:/usr/src/"
+      - /usr/src/node_modules
+    env_file:
+      - .env
+    ports:
+      - 3000:3000
+  mysql:
+    image: mysql:8
+    restart: always
+    volumes:
+      - "./db_data:/var/lib/mysql"
+    env_file:
+      - .env
+    ports:
+      - 3300:3306
+  phpmyadmin:
+    restart: always
+    image: phpmyadmin:latest
+    environment:
+      - PMA_HOST=mysql
+      - UPLOAD_LIMIT=8192M
+    ports:
+      - 8181:80
