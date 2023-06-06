@@ -6,14 +6,18 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const Member = () => {
     const [member, setMember] = useState("");
     const navigate = useNavigate();
-    const getMember  = async (category) => {
+    const getMember = async (category) => {
+        console.log('member.jsx');
         try {
-            let data= await axios.get(`${baseUrl}/customer`, {
+            console.log('member.jsx_try');
+            let data = await axios.get(`${baseUrl}/customer`, {
                 params: category ? { category } : {},
                 headers: { Authorization: localStorage.getItem("auth") },
             });
-            setMember(data.data);
-            console.log(data.data); 
+
+            console.log(data.data);
+            setMember(data.data[0]);
+            console.log(data.data);
         } catch (err) {
             alert(err?.response?.data?.error || "ERROR");
         }
@@ -24,18 +28,25 @@ const Member = () => {
     }, []);
 
 
-    
+
     return (
         <div>
-            <p>{member.username}</p>
-            <p>{member.password}</p>
-            <p>{member.firstname}</p>
+            <p>預設值</p>
+            <p>username</p>
+            <p>{member.Username}</p>
+            <p>password</p>
+            <p>{member.Password}</p>
+            <p>firstname</p>
+            <p>{member.First_name}</p>
+            <p>Joined_since</p>
             <p>{member.Joined_since}</p>
-            <p>{member.address}</p>
+            <p>address</p>
+            <p>{member.Address}</p>
+            <p>預設值</p>
         </div>
 
-        );
-    
+    );
+
 
 
 }

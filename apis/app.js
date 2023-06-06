@@ -11,6 +11,7 @@ require("./routes/product")(app);
 require("./routes/order")(app);
 require("./routes/car")(app);
 require("./routes/user")(app);
+require("./routes/customer")(app);
 
 app.listen(port, "0.0.0.0", () => {
     console.log(`Example app listening at http://localhost:${port}`);

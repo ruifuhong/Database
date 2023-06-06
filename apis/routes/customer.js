@@ -4,6 +4,7 @@ const { verify } = require("../verify");
 
 module.exports = (router) => {
     router.get("/customer", (req, res) => {
+        console.log('進入customer');
         console.log(req.headers);
         const Customer = verify(req);
         console.log(Customer);
