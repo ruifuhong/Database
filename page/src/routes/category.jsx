@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
+import { Link } from 'react-router-dom';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Categories = () => {
@@ -8,7 +9,7 @@ const Categories = () => {
     const navigate = useNavigate();
     const getProduct = async (category) => {
         try {
-            let data= await axios.get(`${baseUrl}/product`, {
+            let data = await axios.get(`${baseUrl}/product`, {
                 params: category ? { category } : {},
                 headers: { Authorization: localStorage.getItem("auth") },
             });
@@ -85,9 +86,9 @@ const Categories = () => {
                                     </div>
                                     <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div className="text-center">
-                                            <a className="btn btn-outline-dark mt-auto" href="#">
+                                            <Link className="btn btn-outline-dark mt-auto" to={`/show_product/${item.Product_id}`}>
                                                 查看詳細資訊
-                                            </a>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>

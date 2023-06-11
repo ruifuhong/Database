@@ -5,7 +5,7 @@ const { verify } = require("../verify");
 module.exports = (router) => {
     router.get("/customer", (req, res) => {
         console.log('進入customer');
-        console.log(req.headers);
+        //console.log(req.headers);
         const Customer = verify(req);
         console.log(Customer);
         if (Customer === false) return res.status(500).json({ error: "INVALID_USER" });

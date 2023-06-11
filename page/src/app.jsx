@@ -3,6 +3,7 @@ import Categories from "./routes/category";
 import Login from "./routes/login";
 import SingUp from "./routes/signup";
 import Member from "./routes/member";
+import Product_show from "./routes/show_product";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
 const App = () => {
@@ -35,7 +36,9 @@ const App = () => {
                 <Route path="/order" element={<Order />} />
                 <Route path="/category" element={<Categories />} />
                 <Route path="/member" element={<Member />} />
+                <Route path="/show_product/*" element={<Product_show />} />
                 <Route path="/*" element={<Login />} />
+                
                 
             </Routes>
             <footer className="bg-light text-center py-3">
