@@ -11,7 +11,7 @@ module.exports = (router) => {
             }
             console.log(productId);
             console.log('1111111111111111111111111111111');
-            let sqlCommand = `SELECT * FROM product WHERE Product_id = 3`;
+            let sqlCommand = `SELECT * FROM product WHERE Product_id = ${productId}`;
            
             connection.query(sqlCommand, (err, products, fields) => {
 

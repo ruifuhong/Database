@@ -19,7 +19,7 @@ const App = () => {
                         <form className="d-flex">
                         <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/member")}>
                                 user_page
-                                <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
+                                
                             </button>
                             <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/order")}>
                                 <i className="bi-cart-fill me-1"></i>
