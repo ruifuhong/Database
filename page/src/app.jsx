@@ -2,6 +2,8 @@ import Order from "./routes/order";
 import Categories from "./routes/category";
 import Login from "./routes/login";
 import SingUp from "./routes/signup";
+import Member from "./routes/member";
+import Product_show from "./routes/show_product";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -29,6 +31,9 @@ const App = () => {
                                 }}>
                                 Log out
                             </button>
+                            <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/member")}>
+                                user_page
+                            </button>
                             <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/order")}>
                                 <i className="bi-cart-fill me-1"></i>
                                 Cart
@@ -45,6 +50,8 @@ const App = () => {
                 <Route path="/login" element={<Login />} />
                 <Route path="/order" element={<Order />} />
                 <Route path="/category" element={<Categories />} />
+                <Route path="/member" element={<Member />} />
+                <Route path="/show_product/*" element={<Product_show />} />
                 <Route path="/*" element={<Login />} />
             </Routes>
             <footer className="bg-light text-center py-3">

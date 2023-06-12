@@ -63,7 +63,7 @@ const Categories = () => {
             <section className="py-5">
                 <div className="container px-4 px-lg-5 mt-5">
                     <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        {product.map((item, index) => (
+                        {product.slice(0, 8).map((item, index) => (
                             <div className="col mb-5" key={index}>
                                 <div className="card h-100">
                                     <a
@@ -85,9 +85,11 @@ const Categories = () => {
                                     </div>
                                     <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div className="text-center">
-                                            <a className="btn btn-outline-dark mt-auto" href="#">
+                                            <button
+                                                className="btn btn-outline-dark mt-auto"
+                                                onClick={() => navigate(`/show_product/${item.Product_id}`)}>
                                                 查看詳細資訊
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>

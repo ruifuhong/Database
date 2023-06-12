@@ -16,7 +16,9 @@ const Login = () => {
             alert(err.response.data.error || "ERROR");
         }
     };
-
+    const goToSignup = () => {
+        navigate("/signup");
+    };
     return (
         <main className="flex-grow-1 d-flex align-items-center">
             <div className="container">
@@ -61,6 +63,9 @@ const Login = () => {
                                 <a href="" onClick={() => navigate("/signup")}>
                                     Regist
                                 </a>
+                            </div>
+                            <div className="card-footer text-center">
+                                <a href="#" onClick={goToSignup}>註冊</a>
                             </div>
                         </div>
                     </div>
