@@ -5,6 +5,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Categories = () => {
     const [product, setProduct] = useState([]);
+
     const navigate = useNavigate();
     const getProduct = async (category) => {
         try {
@@ -18,9 +19,23 @@ const Categories = () => {
         }
     };
 
-    const addProduct = async () => {
-        await axios.post(`${baseUrl}/car`, {});
+    const addProduct = async (Product_id, Category) => {
+        try {
+            await axios.post(
+                `${baseUrl}/wish`,
+                {
+                    Product_id,
+                    Color: null,
+                    Size: null,
+                    Category,
+                },
+                { headers: { Authorization: localStorage.getItem("auth") } }
+            );
+        } catch (err) {
+            alert(err?.response?.data?.error || "ERROR");
+        }
     };
+
     useEffect(() => {
         getProduct();
     }, []);
@@ -63,12 +78,14 @@ const Categories = () => {
             <section className="py-5">
                 <div className="container px-4 px-lg-5 mt-5">
                     <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        {product.slice(0, 8).map((item, index) => (
+                        {product.map((item, index) => (
                             <div className="col mb-5" key={index}>
                                 <div className="card h-100">
                                     <a
                                         className="badge bg-dark text-white  position-absolute_1 btn "
-                                        href="#"
+                                        onClick={() => {
+                                            addProduct(item.Product_id, item.Category);
+                                        }}
                                         style={{ top: "0.5rem", left: "0.5rem" }}>
                                         Add
                                     </a>

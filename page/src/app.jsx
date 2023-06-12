@@ -31,7 +31,11 @@ const App = () => {
                                 }}>
                                 Log out
                             </button>
-                            <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/member")}>
+                            <button
+                                className="btn btn-outline-dark"
+                                type="submit"
+                                style={{ marginRight: "1rem" }}
+                                onClick={() => navigate("/member")}>
                                 user_page
                             </button>
                             <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/order")}>

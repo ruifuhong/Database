@@ -2,18 +2,18 @@ const connection = require("../db");
 const { verify } = require("../verify");
 
 module.exports = (router) => {
-    router.get("/car", (req, res) => {
-        console.log(req.headers);
+    router.get("/wish", (req, res) => {
         const Customer = verify(req);
-        console.log(Customer);
         if (Customer === false) return res.status(500).json({ error: "INVALID_USER" });
         try {
-            const sql = `SELECT * FROM wish_product WHERE Customer = '${Customer}'`;
+            const sql = `SELECT wish_product.Product_id, wish_product.color, wish_product.size, product.Product_name, Price, Image FROM wish_product 
+            JOIN product ON product.Product_id = wish_product.Product_id 
+            WHERE Customer = '${Customer}'`;
             connection.query(sql, (error, data) => {
                 if (error) {
                     res.status(500).json({ error });
                 } else {
-                    console.log(data);
+                    if (data) console.log(data);
                     res.json(data);
                 }
             });
@@ -22,7 +22,7 @@ module.exports = (router) => {
         }
     });
 
-    router.post("/car", (req, res) => {
+    router.post("/wish", (req, res) => {
         const Customer = verify(req);
         if (Customer === false) return res.status(500).json({ error: "INVALID_USER" });
         try {
@@ -30,6 +30,7 @@ module.exports = (router) => {
             const sql = `INSERT INTO wish_product (Customer, Product_id, Color, Size, Category) VALUES (?, ?, ?, ?, ?)`;
             connection.query(sql, [Customer, Product_id, Color, Size, Category], (error, data) => {
                 if (error) {
+                    console.log(error);
                     res.status(500).json({ error });
                 } else {
                     res.json(data);

@@ -1,10 +1,9 @@
 const connection = require("../db");
 const { verify } = require("../verify");
 
-
 module.exports = (router) => {
     router.get("/customer", (req, res) => {
-        console.log('進入customer');
+        console.log("進入customer");
         //console.log(req.headers);
         const Customer = verify(req);
         console.log(Customer);
@@ -23,4 +22,4 @@ module.exports = (router) => {
             return res.status(400).send("error occurred when deleting the data");
         }
     });
-}
+};

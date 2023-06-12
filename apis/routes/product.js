@@ -34,4 +34,30 @@ module.exports = (router) => {
             return res.status(500).send("error occurred when searching the data");
         }
     });
+
+    router.get("/product/color", async (req, res) => {
+        try {
+            let sqlCommand = `SELECT * FROM product_color where Product_id = ${req.query.Product_id}`;
+            connection.query(sqlCommand, (err, colors) => {
+                if (err) return res.status(500).send("error occurred when searching the data");
+                return res.json(colors.map((item) => item.Color));
+            });
+        } catch (e) {
+            console.error({ error });
+            return res.status(500).send("error occurred when searching the data");
+        }
+    });
+
+    router.get("/product/size", async (req, res) => {
+        try {
+            let sqlCommand = `SELECT * FROM product_size where Product_id = ${req.query.Product_id}`;
+            connection.query(sqlCommand, (err, colors) => {
+                if (err) return res.status(500).send("error occurred when searching the data");
+                return res.json(colors.map((item) => item.Size));
+            });
+        } catch (e) {
+            console.error({ error });
+            return res.status(500).send("error occurred when searching the data");
+        }
+    });
 };

@@ -64,9 +64,6 @@ const Login = () => {
                                     Regist
                                 </a>
                             </div>
-                            <div className="card-footer text-center">
-                                <a href="#" onClick={goToSignup}>註冊</a>
-                            </div>
                         </div>
                     </div>
                 </div>
