@@ -27,7 +27,9 @@ const SingUp = () => {
             alert(err.response.data.error || "ERROR");
         }
     };
-
+    const goToSignup = () => {
+        navigate("/signup");
+      };
     return (
         <div className="container">
             <div className="row justify-content-center mt-5">
