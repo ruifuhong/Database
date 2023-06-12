@@ -14,7 +14,7 @@ module.exports = (router) => {
                     return res.status(500).send("從數據庫獲取用戶信息時發生錯誤");
                 }
 
-                if (results.length === 0) {
+                if (!Array.isArray(results) || results.length === 0) {
                     console.log("userId,results.length", userId);
                     return res.status(404).send("用戶不存在");
                 }
@@ -33,7 +33,8 @@ module.exports = (router) => {
         const { username, password } = req.body;
         const sql = "SELECT * FROM customer WHERE Username = ?";
         connection.query(sql, username, (err, user) => {
-            if (user.length !== 1) return res.status(400).json({ error: "USERNAME_PASSWORD_INCORRECT" });
+            if (!Array.isArray(user) || user.length !== 1)
+                return res.status(400).json({ error: "USERNAME_PASSWORD_INCORRECT" });
             if (!bcrypt.compareSync(password, user[0].Password))
                 return res.status(400).json({ error: "USERNAME_PASSWORD_INCORRECT" });
             return res.json({ token: jwt.sign({ username }, process.env.JWT_KEY) });
