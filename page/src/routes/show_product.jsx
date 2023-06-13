@@ -47,6 +47,7 @@ const ProductShow = () => {
     console.log("selected size", selectedSize);
     console.log("category", product.Category);
     console.log("quantity", quantity);
+    console.log("total price", product.Price * quantity);
   };
 
   const extractProductId = () => {
@@ -128,7 +129,7 @@ const ProductShow = () => {
               <option value="large">Large</option>
             </select>
           </div>
-          <div className="product-price">${product.Price}元</div>
+          <div className="product-price">總共${product.Price * quantity}元</div>
         </div>
       </div>
       <div className="right-section">
