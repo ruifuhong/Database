@@ -30,14 +30,67 @@ const ProductShow = () => {
     }
   };
 
-  const addToWishList = () => {
-    console.log("member", member);
-    console.log("add to wish list");
-    console.log("id", extractProductId());
-    console.log("selected color", selectedColor);
-    console.log("selected size", selectedSize);
-    console.log("category", product.Category);
+  const addToWishList = async () => {
+    try {
+      console.log("trying");
+      const extractedProductId = extractProductId();
+
+      const requestBody = {
+        member: member,
+        product_id: Number(extractedProductId),
+        selectedColor: selectedColor,
+        selectedSize: selectedSize,
+        category: product.Category,
+      };
+
+      await axios.post(`${baseUrl}/addwishproduct`, requestBody, {
+        headers: { Authorization: localStorage.getItem("auth") },
+      });
+
+      console.log("Add to wishlist successful");
+      // 根据后端返回的结果进行处理
+    } catch (err) {
+      console.error("Add to wishlist error:", err);
+      alert(err?.response?.data?.error || "ERROR");
+    }
   };
+
+  // const addToWishList = async () => {
+  //   try {
+  //     console.log("trying");
+  //     const extractedProductId = extractProductId();
+
+  //     const requestBody = {
+  //       member: member,
+  //       product_id: Number(extractedProductId),
+  //       selectedColor: selectedColor,
+  //       selectedSize: selectedSize,
+  //       category: product.Category,
+  //     };
+
+  //     console.log("member", member, typeof member);
+  //     console.log("add to wish list");
+  //     console.log("id", extractedProductId, typeof extractedProductId);
+  //     console.log("selected color", selectedColor, typeof selectedColor);
+  //     console.log("selected size", selectedSize, typeof selectedSize);
+  //     console.log("category", product.Category, typeof product.Category);
+
+  //     const response = await axios.post(
+  //       `${baseUrl}/addwishproduct`,
+  //       requestBody,
+  //       {
+  //         headers: { Authorization: localStorage.getItem("auth") },
+  //       }
+  //     );
+
+  //     console.log("Add to wishlist response:", response.data);
+  //     // 根據後端返回的結果進行處理
+  //   } catch (err) {
+  //     console.log("我跟你說你寫錯了");
+  //     console.error("Add to wishlist error:", err);
+  //     alert(err?.response?.data?.error || "ERROR");
+  //   }
+  // };
 
   const addToCart = () => {
     console.log("member", member);
