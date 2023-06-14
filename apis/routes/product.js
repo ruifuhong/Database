@@ -21,17 +21,15 @@ module.exports = (router) => {
             res.status(500).json({ message: "資料插入失敗" });
         }
     });
+
     router.get("/product", async (req, res) => {
+        let sqlCommand = "SELECT * FROM product";
+        if (req.query.category) sqlCommand += ` where category = '${req.query.category}'`;
         try {
-            let sqlCommand = "SELECT * FROM product";
-            if (req.query.category) sqlCommand += ` where category = '${req.query.category}'`;
-            connection.query(sqlCommand, (err, shops, fields) => {
-                console.log(err);
-                if (err) return res.status(500).send("error occurred when searching the data");
-                return res.json(shops);
-            });
-        } catch (e) {
-            return res.status(500).send("error occurred when searching the data");
+            const shops = await connection.connectionPromise(sqlCommand);
+            res.json(shops);
+        } catch (err) {
+            res.status(500).send("error occurred when searching the data");
         }
     });
 

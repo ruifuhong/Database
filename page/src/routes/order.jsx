@@ -3,9 +3,22 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
-const OrderItems = ({ index, order }) => {
-    const [color, setColors] = useState([]);
-    const [size, setSize] = useState([]);
+/**
+ *
+ * @param { {index: number, order: {
+ *          Product_id: number,
+ *          Color: string,
+ *          Size: string,
+ *          Product_name: string,
+ *          Price: number,
+ *          Image: string
+ *      }, deleteWishCar: (args: number) => Promise<void> }} param0
+ * @returns
+ */
+const OrderItems = ({ index, order, deleteWishCar }) => {
+    const [colors, setColors] = useState([null]);
+    const [sizes, setSizes] = useState([null]);
+    const [orderInfo, setOrderInfo] = useState(order);
 
     const getItemInfo = async () => {
         try {
@@ -19,8 +32,21 @@ const OrderItems = ({ index, order }) => {
                     headers: { Authorization: localStorage.getItem("auth") },
                 }),
             ]);
-            setColors(colorInfo.data);
-            setSize(sizeInfo.data);
+            setColors(["", ...colorInfo.data]);
+            setSizes(["", ...sizeInfo.data]);
+        } catch (err) {
+            alert(err.response.data.error || "ERROR");
+        }
+    };
+
+    const updateWishCar = async (updates) => {
+        try {
+            await axios.put(
+                `${baseUrl}/wish`,
+                { ...orderInfo, ...updates },
+                { headers: { Authorization: localStorage.getItem("auth") } }
+            );
+            setOrderInfo({ ...orderInfo, ...updates });
         } catch (err) {
             alert(err.response.data.error || "ERROR");
         }
@@ -38,23 +64,22 @@ const OrderItems = ({ index, order }) => {
                 <img src={order.Image} />
             </td>
             <td>
-                <select>
-                    {color.map((item) => (
-                        <option selected={item === order.color ? "selected" : undefined}>{item}</option>
+                <select onChange={(e) => updateWishCar({ Color: e.target.value })} value={orderInfo.Color || ""}>
+                    {colors.map((item, index) => (
+                        <option key={index}>{item}</option>
                     ))}
                 </select>
             </td>
             <td>
-                <select>
-                    {size.map((item) => (
-                        <option selected={item === order.size ? "selected" : undefined}>{item}</option>
+                <select onChange={(e) => updateWishCar({ Size: e.target.value })} value={orderInfo.Size || ""}>
+                    {sizes.map((item, index) => (
+                        <option key={index}>{item}</option>
                     ))}
                 </select>
             </td>
-            <td>{order.Quantity}</td>
             <td>{order.Price}</td>
             <td>
-                <a href="#">
+                <a onClick={() => deleteWishCar(order.Product_id)}>
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
                         width="25"
@@ -78,10 +103,21 @@ const Order = () => {
             const data = await axios.get(`${baseUrl}/wish`, {
                 headers: { Authorization: localStorage.getItem("auth") },
             });
+            console.log(data);
             setOrder(data.data);
         } catch (err) {
-            alert(err.response.data.error || "ERROR");
+            console.error(err);
+            alert(err?.response?.error || "ERROR");
         }
+    };
+
+    const deleteWishCar = async (Product_id) => {
+        await axios.delete(`${baseUrl}/wish`, {
+            params: { Product_id },
+            headers: { Authorization: localStorage.getItem("auth") },
+        });
+        alert("Product Deleted");
+        await getOrder();
     };
 
     useEffect(() => {
@@ -108,14 +144,13 @@ const Order = () => {
                             <th>商品照片</th>
                             <th>顏色</th>
                             <th>尺寸</th>
-                            <th>數量</th>
                             <th>價格</th>
-                            <th>87</th>
+                            <th>刪除</th>
                         </tr>
                     </thead>
                     <tbody>
                         {order.map((item, index) => (
-                            <OrderItems order={item} key={index} index={index} />
+                            <OrderItems order={item} key={index} index={index} deleteWishCar={deleteWishCar} />
                         ))}
                     </tbody>
                 </table>
@@ -123,12 +158,6 @@ const Order = () => {
                     確認結帳
                 </button>
             </main>
-
-            <footer className="py-5 bg-dark">
-                <div className="container">
-                    <p className="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-                </div>
-            </footer>
         </>
     );
 };

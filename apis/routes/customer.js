@@ -6,7 +6,6 @@ module.exports = (router) => {
         console.log("進入customer");
         //console.log(req.headers);
         const Customer = verify(req);
-        console.log(Customer);
         if (Customer === false) return res.status(500).json({ error: "INVALID_USER" });
         try {
             const sql = `SELECT * FROM final.customer WHERE username = '${Customer}'`;
@@ -14,7 +13,6 @@ module.exports = (router) => {
                 if (error) {
                     res.status(500).json({ error });
                 } else {
-                    console.log(data);
                     res.json(data);
                 }
             });

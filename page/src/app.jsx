@@ -9,9 +9,6 @@ import { useEffect } from "react";
 
 const App = () => {
     const navigate = useNavigate();
-    useEffect(() => {
-        console.log(window.location.pathname);
-    });
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">

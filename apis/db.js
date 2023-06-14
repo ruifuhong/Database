@@ -8,7 +8,7 @@ const path = require("path");
  * @param {string} sqlCommand
  * @returns
  */
-const connectionPromise = (connection, sqlCommand) => {
+const connectionPromise = (sqlCommand) => {
     return new Promise((resolve, reject) => {
         connection.query(sqlCommand, (err, result) => {
             if (err) return reject(err);
@@ -51,3 +51,5 @@ connection.query("SHOW TABLES LIKE 'category'", async (err, data) => {
 });
 
 module.exports = connection;
+exports = module.exports;
+exports.connectionPromise = connectionPromise;
