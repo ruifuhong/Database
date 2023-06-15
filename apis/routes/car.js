@@ -56,6 +56,7 @@ module.exports = (router) => {
                     res.json(data);
                 }
             });
+            console.log("hello");
         } catch (e) {
             res.status(500).send("error occurred when creating the data");
         }

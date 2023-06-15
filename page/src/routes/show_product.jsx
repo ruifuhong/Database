@@ -36,72 +36,78 @@ const ProductShow = () => {
       const extractedProductId = extractProductId();
 
       const requestBody = {
-        member: member,
-        product_id: Number(extractedProductId),
-        selectedColor: selectedColor,
-        selectedSize: selectedSize,
-        category: product.Category,
+        Product_id: Number(extractedProductId),
+        Color: selectedColor,
+        Size: selectedSize,
+        Category: product.Category,
       };
 
-      await axios.post(`${baseUrl}/addwishproduct`, requestBody, {
+      await axios.post(`${baseUrl}/wish`, requestBody, {
         headers: { Authorization: localStorage.getItem("auth") },
       });
 
-      console.log("Add to wishlist successful");
-      // 根据后端返回的结果进行处理
+      console.log("Add to wishlist successful");     
     } catch (err) {
       console.error("Add to wishlist error:", err);
       alert(err?.response?.data?.error || "ERROR");
     }
   };
 
-  // const addToWishList = async () => {
-  //   try {
-  //     console.log("trying");
-  //     const extractedProductId = extractProductId();
+  const generateRandomString = (length) => {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let randomString = "";
 
-  //     const requestBody = {
-  //       member: member,
-  //       product_id: Number(extractedProductId),
-  //       selectedColor: selectedColor,
-  //       selectedSize: selectedSize,
-  //       category: product.Category,
-  //     };
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomString += characters.charAt(randomIndex);
+    }
 
-  //     console.log("member", member, typeof member);
-  //     console.log("add to wish list");
-  //     console.log("id", extractedProductId, typeof extractedProductId);
-  //     console.log("selected color", selectedColor, typeof selectedColor);
-  //     console.log("selected size", selectedSize, typeof selectedSize);
-  //     console.log("category", product.Category, typeof product.Category);
-
-  //     const response = await axios.post(
-  //       `${baseUrl}/addwishproduct`,
-  //       requestBody,
-  //       {
-  //         headers: { Authorization: localStorage.getItem("auth") },
-  //       }
-  //     );
-
-  //     console.log("Add to wishlist response:", response.data);
-  //     // 根據後端返回的結果進行處理
-  //   } catch (err) {
-  //     console.log("我跟你說你寫錯了");
-  //     console.error("Add to wishlist error:", err);
-  //     alert(err?.response?.data?.error || "ERROR");
-  //   }
-  // };
-
-  const addToCart = () => {
-    console.log("member", member);
-    console.log("add to cart");
-    console.log("id", extractProductId());
-    console.log("selected color", selectedColor);
-    console.log("selected size", selectedSize);
-    console.log("category", product.Category);
-    console.log("quantity", quantity);
-    console.log("total price", product.Price * quantity);
+    return randomString;
   };
+
+  const addProduct = async () => {
+    const randomString = generateRandomString(20);
+    try {
+        console.log("member", member);
+        console.log("Order_id",randomString);
+        console.log("id", extractProductId());
+        console.log("selected color", selectedColor);
+        console.log("selected size", selectedSize);
+        console.log("category", product.Category);
+        console.log("quantity", quantity);
+        console.log("total price", product.Price * quantity);
+
+        await axios.post(
+            `${baseUrl}/wish`,
+            {
+                Order_id: randomString,
+                Item: product.Product_name,
+                Product_id:extractProductId(),
+                Color: selectedColor,
+                Size: selectedSize,
+                Category:product.Category,
+                Quantity:quantity,
+                Price: product.Price * quantity,
+            },
+            { headers: { Authorization: localStorage.getItem("auth") } }
+        );
+        alert("Item Add Success");
+    } catch (err) {
+        alert(err?.response?.data?.error || "ERROR");
+    }
+};
+
+  // const addToCart = () => {
+  //   console.log("member", member);
+  //   console.log("add to cart");
+  //   console.log("id", extractProductId());
+  //   console.log("selected color", selectedColor);
+  //   console.log("selected size", selectedSize);
+  //   console.log("category", product.Category);
+  //   console.log("quantity", quantity);
+  //   console.log("total price", product.Price * quantity);
+  // };
 
   const extractProductId = () => {
     const pathParts = currentPath.split("/");
@@ -205,7 +211,7 @@ const ProductShow = () => {
             />
           </div>
           <div className="cart-container">
-            <button className="add-to-cart-button" onClick={addToCart}>
+            <button className="add-to-cart-button" onClick={addProduct}>
               Add to Cart
             </button>
           </div>

@@ -27,33 +27,4 @@ module.exports = (router) => {
       return res.status(500).send("Error occurred when searching the data");
     }
   });
-
-  router.post("/addwishproduct", (req, res) => {
-    const { member, product_id, selectedColor, selectedSize, category } =
-      req.body;
-
-    try {
-      const sql = `INSERT INTO wish_product (Customer, Product_id, Color, Size, Category) VALUES (?, ?, ?, ?, ?)`;
-      const values = [
-        member,
-        product_id,
-        selectedColor,
-        selectedSize,
-        category,
-      ];
-
-      connection.query(sql, values, (error, results) => {
-        if (error) {
-          console.error("Failed to insert data:", error);
-          res.status(500).json({ error: "INSERT_FAILED" });
-        } else {
-          console.log("Data inserted successfully");
-          res.json({ message: "Data inserted successfully" });
-        }
-      });
-    } catch (error) {
-      console.error("Failed to insert data:", error);
-      res.status(500).json({ error: "INSERT_FAILED" });
-    }
-  });
 };
