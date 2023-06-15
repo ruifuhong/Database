@@ -32,7 +32,6 @@ const ProductShow = () => {
 
   const addToWishList = async () => {
     try {
-      console.log("trying");
       const extractedProductId = extractProductId();
 
       const requestBody = {
@@ -78,10 +77,8 @@ const ProductShow = () => {
         console.log("quantity", quantity);
         console.log("total price", product.Price * quantity);
 
-        await axios.post(
-            `${baseUrl}/wish`,
-            {
-                Order_id: randomString,
+        const requestBody = {
+          Order_id: randomString,
                 Item: product.Product_name,
                 Product_id:extractProductId(),
                 Color: selectedColor,
@@ -89,25 +86,16 @@ const ProductShow = () => {
                 Category:product.Category,
                 Quantity:quantity,
                 Price: product.Price * quantity,
-            },
-            { headers: { Authorization: localStorage.getItem("auth") } }
-        );
-        alert("Item Add Success");
+        };
+
+        await axios.post(`${baseUrl}/cart`, requestBody, {
+          headers: { Authorization: localStorage.getItem("auth") },
+        });
+        alert("cart Success");
     } catch (err) {
         alert(err?.response?.data?.error || "ERROR");
     }
 };
-
-  // const addToCart = () => {
-  //   console.log("member", member);
-  //   console.log("add to cart");
-  //   console.log("id", extractProductId());
-  //   console.log("selected color", selectedColor);
-  //   console.log("selected size", selectedSize);
-  //   console.log("category", product.Category);
-  //   console.log("quantity", quantity);
-  //   console.log("total price", product.Price * quantity);
-  // };
 
   const extractProductId = () => {
     const pathParts = currentPath.split("/");

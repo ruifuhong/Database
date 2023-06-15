@@ -62,6 +62,35 @@ module.exports = (router) => {
         }
     });
 
+    router.post("/cart", async (req, res) => {
+        const Customer = verify(req);
+        if (Customer === false) {
+            res.status(400).json({ error: "INVALID_USER" });
+            return;
+        }
+        try {
+            const { Order_id, Item, Product_id, Color, Size, Category, Quantity, Price} = req.body;
+            console.log("body",req.body);
+            if (Customer === undefined || Product_id === undefined)
+                return res.status(400).json({ error: "INVALID INPUT" });
+            const exist = await checkWishProductDuplicate(Customer, Product_id);
+            if (exist === true) return res.status(400).json({ error: "ALREADY IN CAR" });
+            const sql = `INSERT INTO order_item (Order_id, Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+            connection.query(sql, [Order_id, Item, Product_id, Color, Size, Category, Quantity, Price], (error, data) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).json({ error });
+                } else {
+                    res.json(data);
+                }
+            });
+            console.log("hello");
+        } catch (e) {
+            res.status(500).send("error occurred when creating the data");
+        }
+    });
+
+
     router.put("/wish", async (req, res) => {
         const Customer = verify(req);
         if (Customer === false) {
