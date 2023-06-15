@@ -275,7 +275,7 @@ CREATE TABLE `wish_product` (
   KEY `Product_id` (`Product_id`),
   KEY `Category` (`Category`),
   CONSTRAINT `wish_product_ibfk_1` FOREIGN KEY (`Customer`) REFERENCES `customer` (`Username`),
-  CONSTRAINT `wish_product_ibfk_2` FOREIGN KEY (`Product_id`) REFERENCES `on_sale_product` (`Product_id`),
+  CONSTRAINT `wish_product_ibfk_2` FOREIGN KEY (`Product_id`) REFERENCES `product` (`Product_id`),
   CONSTRAINT `wish_product_ibfk_3` FOREIGN KEY (`Category`) REFERENCES `category` (`Category_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

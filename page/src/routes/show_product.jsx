@@ -13,6 +13,19 @@ const ProductShow = () => {
   const [selectedSize, setSelectedSize] = useState("small");
   const currentPath = window.location.pathname;
 
+  const generateRandomString = (length) => {
+    const characters =
+      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    let randomString = "";
+
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      randomString += characters.charAt(randomIndex);
+    }
+
+    return randomString;
+  };
+
   const getMember = async (category) => {
     console.log("member.jsx");
     try {
@@ -55,52 +68,37 @@ const ProductShow = () => {
     }
   };
 
-  // const addToWishList = async () => {
-  //   try {
-  //     console.log("trying");
-  //     const extractedProductId = extractProductId();
-
-  //     const requestBody = {
-  //       member: member,
-  //       product_id: Number(extractedProductId),
-  //       selectedColor: selectedColor,
-  //       selectedSize: selectedSize,
-  //       category: product.Category,
-  //     };
-
-  //     console.log("member", member, typeof member);
-  //     console.log("add to wish list");
-  //     console.log("id", extractedProductId, typeof extractedProductId);
-  //     console.log("selected color", selectedColor, typeof selectedColor);
-  //     console.log("selected size", selectedSize, typeof selectedSize);
-  //     console.log("category", product.Category, typeof product.Category);
-
-  //     const response = await axios.post(
-  //       `${baseUrl}/addwishproduct`,
-  //       requestBody,
-  //       {
-  //         headers: { Authorization: localStorage.getItem("auth") },
-  //       }
-  //     );
-
-  //     console.log("Add to wishlist response:", response.data);
-  //     // 根據後端返回的結果進行處理
-  //   } catch (err) {
-  //     console.log("我跟你說你寫錯了");
-  //     console.error("Add to wishlist error:", err);
-  //     alert(err?.response?.data?.error || "ERROR");
-  //   }
-  // };
-
-  const addToCart = () => {
-    console.log("member", member);
-    console.log("add to cart");
+  const addToCart = async () => {
+    const randomString = generateRandomString(20);
+    console.log("order_id", randomString);
+    console.log("item name", product.Product_name);
     console.log("id", extractProductId());
     console.log("selected color", selectedColor);
     console.log("selected size", selectedSize);
     console.log("category", product.Category);
     console.log("quantity", quantity);
     console.log("total price", product.Price * quantity);
+    console.log("member", member);
+    console.log("add to cart");
+
+    const orderItem = {
+      Order_id: randomString,
+      Item: product.Product_name,
+      Product_id: extractProductId(),
+      Color: selectedColor,
+      Size: selectedSize,
+      Category: product.Category,
+      Quantity: quantity,
+      Price: product.Price * quantity,
+    };
+
+    try {
+      await axios.post(`${baseUrl}/orderitem`, orderItem);
+      console.log("Add to cart successfully");
+    } catch (error) {
+      console.error("Add to cart failed:", error);
+      alert(error?.response?.data?.error || "ERROR");
+    }
   };
 
   const extractProductId = () => {
