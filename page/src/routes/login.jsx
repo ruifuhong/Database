@@ -16,7 +16,9 @@ const Login = () => {
             alert(err.response.data.error || "ERROR");
         }
     };
-
+    const goToSignup = () => {
+        navigate("/signup");
+    };
     return (
         <main className="flex-grow-1 d-flex align-items-center">
             <div className="container">
@@ -49,7 +51,7 @@ const Login = () => {
                                 </div>
                                 <div className="mb-3 form-check">
                                     <input type="checkbox" className="form-check-input" id="remember" />
-                                    <label className="form-check-label" for="remember">
+                                    <label className="form-check-label" htmlFor="remember">
                                         記住我
                                     </label>
                                 </div>
@@ -58,7 +60,9 @@ const Login = () => {
                                 </button>
                             </div>
                             <div className="card-footer text-center">
-                                <a href="#">忘記密碼？</a>
+                                <a href="" onClick={() => navigate("/signup")}>
+                                    Regist
+                                </a>
                             </div>
                         </div>
                     </div>

@@ -5,10 +5,11 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Categories = () => {
     const [product, setProduct] = useState([]);
+
     const navigate = useNavigate();
     const getProduct = async (category) => {
         try {
-            await axios.get(`${baseUrl}/product`, {
+            const data = await axios.get(`${baseUrl}/product`, {
                 params: category ? { category } : {},
                 headers: { Authorization: localStorage.getItem("auth") },
             });
@@ -18,9 +19,24 @@ const Categories = () => {
         }
     };
 
-    const addProduct = async () => {
-        await axios.post(`${baseUrl}/car`, {});
+    const addProduct = async (Product_id, Category) => {
+        try {
+            await axios.post(
+                `${baseUrl}/wish`,
+                {
+                    Product_id,
+                    Color: null,
+                    Size: null,
+                    Category,
+                },
+                { headers: { Authorization: localStorage.getItem("auth") } }
+            );
+            alert("Item Add Success");
+        } catch (err) {
+            alert(err?.response?.data?.error || "ERROR");
+        }
     };
+
     useEffect(() => {
         getProduct();
     }, []);
@@ -68,7 +84,9 @@ const Categories = () => {
                                 <div className="card h-100">
                                     <a
                                         className="badge bg-dark text-white  position-absolute_1 btn "
-                                        href="#"
+                                        onClick={() => {
+                                            addProduct(item.Product_id, item.Category);
+                                        }}
                                         style={{ top: "0.5rem", left: "0.5rem" }}>
                                         Add
                                     </a>
@@ -85,9 +103,11 @@ const Categories = () => {
                                     </div>
                                     <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div className="text-center">
-                                            <a className="btn btn-outline-dark mt-auto" href="#">
+                                            <button
+                                                className="btn btn-outline-dark mt-auto"
+                                                onClick={() => navigate(`/show_product/${item.Product_id}`)}>
                                                 查看詳細資訊
-                                            </a>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -96,11 +116,6 @@ const Categories = () => {
                     </div>
                 </div>
             </section>
-            <footer className="py-5 bg-dark">
-                <div className="container">
-                    <p className="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-                </div>
-            </footer>
         </>
     );
 };
