@@ -68,24 +68,12 @@ const ProductShow = () => {
   const addProduct = async () => {
     const randomString = generateRandomString(20);
     try {
-        console.log("member", member);
-        console.log("Order_id",randomString);
-        console.log("id", extractProductId());
-        console.log("selected color", selectedColor);
-        console.log("selected size", selectedSize);
-        console.log("category", product.Category);
-        console.log("quantity", quantity);
         console.log("total price", product.Price * quantity);
+        console.log("Order_id",randomString );
 
         const requestBody = {
-          Order_id: randomString,
-                Item: product.Product_name,
-                Product_id:extractProductId(),
-                Color: selectedColor,
-                Size: selectedSize,
-                Category:product.Category,
-                Quantity:quantity,
-                Price: product.Price * quantity,
+                Order_id: randomString,
+                Total_price: product.Price * quantity,
         };
 
         await axios.post(`${baseUrl}/cart`, requestBody, {
@@ -95,8 +83,8 @@ const ProductShow = () => {
     } catch (err) {
         alert(err?.response?.data?.error || "ERROR");
     }
-};
-
+  };
+ 
   const extractProductId = () => {
     const pathParts = currentPath.split("/");
     const extractedProductId = pathParts[pathParts.length - 1];

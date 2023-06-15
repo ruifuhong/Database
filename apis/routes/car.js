@@ -62,6 +62,7 @@ module.exports = (router) => {
         }
     });
 
+  
     router.post("/cart", async (req, res) => {
         const Customer = verify(req);
         if (Customer === false) {
@@ -69,14 +70,13 @@ module.exports = (router) => {
             return;
         }
         try {
-            const { Order_id, Item, Product_id, Color, Size, Category, Quantity, Price} = req.body;
-            console.log("body",req.body);
-            if (Customer === undefined || Product_id === undefined)
+            const { Order_id,Total_price} = req.body;
+            if (Customer === undefined )
                 return res.status(400).json({ error: "INVALID INPUT" });
-            const exist = await checkWishProductDuplicate(Customer, Product_id);
-            if (exist === true) return res.status(400).json({ error: "ALREADY IN CAR" });
-            const sql = `INSERT INTO order_item (Order_id, Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-            connection.query(sql, [Order_id, Item, Product_id, Color, Size, Category, Quantity, Price], (error, data) => {
+            // const exist = await checkWishProductDuplicate(Customer);
+            // if (exist === true) return res.status(400).json({ error: "ALREADY IN CAR" });
+            const sql = `INSERT INTO orderlist (Order_id, Customer, Total_price) VALUES (?, ?, ?)`;
+            connection.query(sql, [Order_id, Customer, Total_price], (error, data) => {
                 if (error) {
                     console.log(error);
                     res.status(500).json({ error });
@@ -84,7 +84,6 @@ module.exports = (router) => {
                     res.json(data);
                 }
             });
-            console.log("hello");
         } catch (e) {
             res.status(500).send("error occurred when creating the data");
         }
