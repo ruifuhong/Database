@@ -21,17 +21,47 @@ module.exports = (router) => {
             res.status(500).json({ message: "資料插入失敗" });
         }
     });
+
     router.get("/product", async (req, res) => {
+        let sqlCommand = "SELECT * FROM product";
+        if (req.query.category) sqlCommand += ` where category = '${req.query.category}'`;
         try {
-            let sqlCommand = "SELECT * FROM product";
-            if (req.query.category) sqlCommand += ` where category = '${req.query.category}'`;
-            connection.query(sqlCommand, (err, shops, fields) => {
-                console.log(err);
+            const shops = await connection.connectionPromise(sqlCommand);
+            res.json(shops);
+        } catch (err) {
+            res.status(500).send("error occurred when searching the data");
+        }
+    });
+
+    router.get("/product/color", async (req, res) => {
+        try {
+            let sqlCommand = `SELECT * FROM product_color where Product_id = ${req.query.Product_id}`;
+            connection.query(sqlCommand, (err, colors) => {
                 if (err) return res.status(500).send("error occurred when searching the data");
-                return res.json(shops);
+                return res.json(colors.map((item) => item.Color));
             });
         } catch (e) {
+            console.error({ error });
             return res.status(500).send("error occurred when searching the data");
         }
     });
+
+    router.get("/product/size", async (req, res) => {
+        try {
+            let sqlCommand = `SELECT * FROM product_size where Product_id = ${req.query.Product_id}`;
+            connection.query(sqlCommand, (err, colors) => {
+                if (err) return res.status(500).send("error occurred when searching the data");
+                return res.json(colors.map((item) => item.Size));
+            });
+        } catch (e) {
+            console.error({ error });
+            return res.status(500).send("error occurred when searching the data");
+        }
+    });
+
+
+
+
+
+    
 };

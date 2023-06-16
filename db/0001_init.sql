@@ -68,38 +68,13 @@ LOCK TABLES `customer` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `on_sale_product`
---
-
-DROP TABLE IF EXISTS `on_sale_product`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `on_sale_product` (
-  `Product_id` int NOT NULL,
-  `Promotion_price` int DEFAULT NULL,
-  `Promotion_end_date` date DEFAULT NULL,
-  PRIMARY KEY (`Product_id`),
-  CONSTRAINT `on_sale_product_ibfk_1` FOREIGN KEY (`Product_id`) REFERENCES `product` (`Product_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `on_sale_product`
---
-
-LOCK TABLES `on_sale_product` WRITE;
-/*!40000 ALTER TABLE `on_sale_product` DISABLE KEYS */;
-/*!40000 ALTER TABLE `on_sale_product` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Table structure for table `order`
 --
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `orderlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
+CREATE TABLE `orderlist` (
   `Order_id` varchar(100) NOT NULL,
   `Customer` varchar(100) NOT NULL,
   `Total_price` int DEFAULT NULL,
@@ -122,10 +97,10 @@ UNLOCK TABLES;
 -- Table structure for table `order_item`
 --
 
-DROP TABLE IF EXISTS `order_item`;
+DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order_item` (
+CREATE TABLE `order` (
   `Order_id` varchar(100) NOT NULL,
   `Item` varchar(100) NOT NULL,
   `Product_id` int DEFAULT NULL,
@@ -275,7 +250,7 @@ CREATE TABLE `wish_product` (
   KEY `Product_id` (`Product_id`),
   KEY `Category` (`Category`),
   CONSTRAINT `wish_product_ibfk_1` FOREIGN KEY (`Customer`) REFERENCES `customer` (`Username`),
-  CONSTRAINT `wish_product_ibfk_2` FOREIGN KEY (`Product_id`) REFERENCES `on_sale_product` (`Product_id`),
+  CONSTRAINT `wish_product_ibfk_2` FOREIGN KEY (`Product_id`) REFERENCES `product` (`Product_id`),
   CONSTRAINT `wish_product_ibfk_3` FOREIGN KEY (`Category`) REFERENCES `category` (`Category_name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

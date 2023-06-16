@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router";
-import { Link } from 'react-router-dom';
 const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Categories = () => {
     const [product, setProduct] = useState([]);
+
     const navigate = useNavigate();
     const getProduct = async (category) => {
         try {
-            let data = await axios.get(`${baseUrl}/product`, {
+            const data = await axios.get(`${baseUrl}/product`, {
                 params: category ? { category } : {},
                 headers: { Authorization: localStorage.getItem("auth") },
             });
@@ -19,9 +19,24 @@ const Categories = () => {
         }
     };
 
-    const addProduct = async () => {
-        await axios.post(`${baseUrl}/car`, {});
+    const addProduct = async (Product_id, Category) => {
+        try {
+            await axios.post(
+                `${baseUrl}/wish`,
+                {
+                    Product_id,
+                    Color: null,
+                    Size: null,
+                    Category,
+                },
+                { headers: { Authorization: localStorage.getItem("auth") } }
+            );
+            alert("Item Add Success");
+        } catch (err) {
+            alert(err?.response?.data?.error || "ERROR");
+        }
     };
+
     useEffect(() => {
         getProduct();
     }, []);
@@ -64,12 +79,14 @@ const Categories = () => {
             <section className="py-5">
                 <div className="container px-4 px-lg-5 mt-5">
                     <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-                        {product.slice(0, 8).map((item, index) => (
+                        {product.map((item, index) => (
                             <div className="col mb-5" key={index}>
                                 <div className="card h-100">
                                     <a
                                         className="badge bg-dark text-white  position-absolute_1 btn "
-                                        href="#"
+                                        onClick={() => {
+                                            addProduct(item.Product_id, item.Category);
+                                        }}
                                         style={{ top: "0.5rem", left: "0.5rem" }}>
                                         Add
                                     </a>
@@ -86,9 +103,11 @@ const Categories = () => {
                                     </div>
                                     <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                         <div className="text-center">
-                                            <Link className="btn btn-outline-dark mt-auto" to={`/show_product/${item.Product_id}`}>
+                                            <button
+                                                className="btn btn-outline-dark mt-auto"
+                                                onClick={() => navigate(`/show_product/${item.Product_id}`)}>
                                                 查看詳細資訊
-                                            </Link>
+                                            </button>
                                         </div>
                                     </div>
                                 </div>
@@ -97,11 +116,6 @@ const Categories = () => {
                     </div>
                 </div>
             </section>
-            <footer className="py-5 bg-dark">
-                <div className="container">
-                    <p className="m-0 text-center text-white">Copyright &copy; Your Website 2023</p>
-                </div>
-            </footer>
         </>
     );
 };

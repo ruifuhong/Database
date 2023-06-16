@@ -1,5 +1,5 @@
+import "./stylesheets/index.css";
 import "./stylesheets/order.css";
-import "./stylesheets/category.css";
 
 import React from "react";
 import { createRoot } from "react-dom/client";

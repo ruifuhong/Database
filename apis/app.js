@@ -13,9 +13,9 @@ require("./routes/car")(app);
 require("./routes/user")(app);
 require("./routes/customer")(app);
 require("./routes/product_show.js")(app);
-
+require("./routes/history")(app);
 
 
 app.listen(port, "0.0.0.0", () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`Example app listening at http://localhost:${port}`);
 });

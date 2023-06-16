@@ -27,9 +27,7 @@ const SingUp = () => {
             alert(err.response.data.error || "ERROR");
         }
     };
-    const goToSignup = () => {
-        navigate("/signup");
-      };
+
     return (
         <div className="container">
             <div className="row justify-content-center mt-5">
@@ -99,9 +97,14 @@ const SingUp = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                             </div>
-                            <button type="submit" className="btn btn-primary btn-block" onClick={regist}>
-                                註冊
-                            </button>
+                            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                <button className="btn btn-primary" onClick={() => navigate("/login")}>
+                                    Sign in
+                                </button>
+                                <button className="btn btn-primary" onClick={regist}>
+                                    註冊
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>

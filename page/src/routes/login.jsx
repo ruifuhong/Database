@@ -60,10 +60,9 @@ const Login = () => {
                                 </button>
                             </div>
                             <div className="card-footer text-center">
-                                <a href="#">忘記密碼？</a>
-                            </div>
-                            <div className="card-footer text-center">
-                                <a href="#" onClick={goToSignup}>註冊</a>
+                                <a href="" onClick={() => navigate("/signup")}>
+                                    Regist
+                                </a>
                             </div>
                         </div>
                     </div>
