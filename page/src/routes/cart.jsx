@@ -100,7 +100,7 @@ const Cart = () => {
     const [order, setOrder] = useState([]);
     const [shopBar, setShopBar] = useState(false);
     const navigate = useNavigate();
-
+  
     const getOrder = async () => {
         try {
             const data = await axios.get(`${baseUrl}/cart`, {
@@ -124,15 +124,17 @@ const Cart = () => {
     };
     const bulidorderlist = async () => {
         try {
-            await axios.post(
-                `${baseUrl}/history`,
-                {
-                    Order_id: null,
-                    Total_price,
-                },
-                { headers: { Authorization: localStorage.getItem("auth") } }
-            );
-            alert("Success");
+            console.log("結帳");
+            console.log(member);
+            // await axios.post(
+            //     `${baseUrl}/history`,
+            //     {
+            //         Order_id: null,
+            //         Total_price,
+            //     },
+            //     { headers: { Authorization: localStorage.getItem("auth") } }
+            // );
+            // alert("Success");
             
             // console.log("total price", order.Price * order.quantity);
             // console.log("product_id",order.product_id );
@@ -187,13 +189,9 @@ const Cart = () => {
                         ))}
                     </tbody>
                 </table>
-                {order.map((item, index) => (
-                <button className="btn btn-outline-dark" type="submit"key={index} onClick={() => {
-                                            bulidorderlist(item.price);
-                                        }}>
+                <button onClick={bulidorderlist}>
                     確認結帳
                 </button>
-                  ))}
             </main>
         </>
     );

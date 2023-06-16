@@ -119,7 +119,7 @@ module.exports = (router) => {
             res.status(500).send("error occurred when deleting the data");
         }
     });
-    
+
     const insertOrderItem = (res, order_id, Item, Product_id, Color, Size, Category, Quantity, Price) => {
         const insertQuery = `INSERT INTO order_item (Order_id, Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
         connection.query(insertQuery, [order_id, Item, Product_id, Color, Size, Category, Quantity, Price], (error, data) => {
@@ -205,27 +205,73 @@ module.exports = (router) => {
     });
 
     
+    // router.get("/cart", (req, res) => {
+    //     try {
+    //         const Customer = verify(req);
+    //         if (Customer === false) {
+    //             res.status(400).json({ error: "INVALID_USER" });
+    //             return;
+    //         }
+    //         const sql = `SELECT  order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price  
+    //         FROM order_item
+    //         `;
+    //         connection.query(sql, (error, data) => {
+    //             if (error) {
+    //                 res.status(500).json({ error });
+    //             } else {
+    //                 res.json(data);
+    //             }
+    //         });
+    //     } catch (e) {
+    //         res.status(500).send("error occurred when getting the data");
+    //     }
+    // });
+
     router.get("/cart", (req, res) => {
         try {
-            const Customer = verify(req);
-            if (Customer === false) {
-                res.status(400).json({ error: "INVALID_USER" });
-                return;
-            }
-            const sql = `SELECT  order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price  
-            FROM order_item
-            `;
-            connection.query(sql, (error, data) => {
+          const Customer = verify(req);
+          if (Customer === false) {
+            res.status(400).json({ error: "INVALID_USER" });
+            return;
+          }
+      
+          // 直接使用指定 Customer 的 order_id
+          const getOrderQuery = `
+            SELECT order_id
+            FROM orderlist
+            WHERE Customer = '${Customer}'
+            LIMIT 1
+          `;
+      
+          connection.query(getOrderQuery, (error, results) => {
+            if (error) {
+              res.status(500).json({ error });
+            } else if (results.length === 0) {
+              res.status(404).json({ error: "Order not found" });
+            } else {
+              const order_id = results[0].order_id;
+      
+              // 在 order_item 表格中查詢指定的訂單項目記錄
+              const sql = `
+                SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price
+                FROM order_item
+                WHERE order_item.order_id = '${order_id}'
+              `;
+      
+              connection.query(sql, (error, data) => {
                 if (error) {
-                    res.status(500).json({ error });
+                  res.status(500).json({ error });
                 } else {
-                    res.json(data);
+                  res.json(data);
                 }
-            });
+              });
+            }
+          });
         } catch (e) {
-            res.status(500).send("error occurred when getting the data");
+          res.status(500).send("error occurred when getting the data");
         }
-    });
+      });
+      
 
     router.delete("/cart", async (req, res) => {
         const Customer = verify(req);
