@@ -119,33 +119,7 @@ module.exports = (router) => {
             res.status(500).send("error occurred when deleting the data");
         }
     });
-
-    // router.post("/cart", async (req, res) => {
-    //     const Customer = verify(req);
-    //     if (Customer === false) {
-    //         res.status(400).json({ error: "INVALID_USER" });
-    //         return;
-    //     }
-    //     try {
-    //         const { Order_id,Item, Product_id, Color, Size,Category, Quantity,Price} = req.body;
-    //         if (Customer === undefined )
-    //             return res.status(400).json({ error: "INVALID INPUT" });
-    //         const exist = await checkCartDuplicate(Product_id);
-    //         if (exist === true) return res.status(400).json({ error: "ALREADY IN CAR" });
-    //         const sql = `INSERT INTO order_item (Order_id,Item, Product_id, Color, Size,Category, Quantity,Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
-    //         connection.query(sql, [Order_id,Item, Product_id, Color, Size,Category, Quantity,Price], (error, data) => {
-    //             if (error) {
-    //                 console.log(error);
-    //                 res.status(500).json({ error });
-    //             } else {
-    //                 res.json(data);
-    //             }
-    //         });
-    //     } catch (e) {
-    //         res.status(500).send("error occurred when creating the data");
-    //     }
-    // });
-
+    
     const insertOrderItem = (res, order_id, Item, Product_id, Color, Size, Category, Quantity, Price) => {
         const insertQuery = `INSERT INTO order_item (Order_id, Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
         connection.query(insertQuery, [order_id, Item, Product_id, Color, Size, Category, Quantity, Price], (error, data) => {

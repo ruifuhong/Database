@@ -52,39 +52,6 @@ const ProductShow = () => {
     }
   };
 
-  const generateRandomString = (length) => {
-    const characters =
-      "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    let randomString = "";
-
-    for (let i = 0; i < length; i++) {
-      const randomIndex = Math.floor(Math.random() * characters.length);
-      randomString += characters.charAt(randomIndex);
-    }
-
-    return randomString;
-  };
-
-  // const addProduct = async () => {
-  //   const randomString = generateRandomString(20);
-  //   try {
-  //       console.log("total price", product.Price * quantity);
-  //       console.log("Order_id",randomString );
-
-  //       const requestBody = {
-  //               Order_id: randomString,
-  //               Total_price: product.Price * quantity,
-  //       };
-
-  //       await axios.post(`${baseUrl}/cart`, requestBody, {
-  //         headers: { Authorization: localStorage.getItem("auth") },
-  //       });
-  //       alert("cart Success");
-  //   } catch (err) {
-  //       alert(err?.response?.data?.error || "ERROR");
-  //   }
-  // };
-
   const addProduct = async () => {
     const randomString = generateRandomString(20);
     try {
