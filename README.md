@@ -38,8 +38,8 @@
 
 |功能需求|使用工具|
 |----|----|
-|網頁前端語言|HTML CSS JavaScript|
-|網頁後端語言|Node.js|
+|網頁前端|React|
+|網頁後端|Express|
 |資料庫|MySQL|
 |部署環境|Docker|
 
