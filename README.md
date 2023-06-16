@@ -43,7 +43,7 @@
 |資料庫|MySQL|
 |部署環境|Docker|
 
-## **DB 相關操作**
+## **Docker 相關操作**
 
 - Easy if you got docker
 
@@ -60,7 +60,7 @@ docker exec -it ${id} sh    # 進去docker container裡面
 npm install ${package}      # install your package
 ```
 
-## **mysql docker container**
+## **MySQL Docker Container**
 > volumn at db_data
 - use phpmyadmin for easy accessing `localhost:8181`
 - or use your sql service to access: `localhost:3300`
