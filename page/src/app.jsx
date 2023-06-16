@@ -1,4 +1,5 @@
 import Order from "./routes/order";
+import Cart from "./routes/cart";
 import Categories from "./routes/category";
 import Login from "./routes/login";
 import SingUp from "./routes/signup";
@@ -35,7 +36,7 @@ const App = () => {
                                 onClick={() => navigate("/member")}>
                                 user_page
                             </button>
-                            <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/order")}>
+                            <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/cart")}>
                                 <i className="bi-cart-fill me-1"></i>
                                 Cart
                                 <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
@@ -50,6 +51,7 @@ const App = () => {
                 <Route path="/signup" element={<SingUp />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/order" element={<Order />} />
+                <Route path="/cart" element={<Cart />} />
                 <Route path="/category" element={<Categories />} />
                 <Route path="/member" element={<Member />} />
                 <Route path="/show_product/*" element={<Product_show />} />

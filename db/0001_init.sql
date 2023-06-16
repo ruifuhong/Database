@@ -71,10 +71,10 @@ UNLOCK TABLES;
 -- Table structure for table `order`
 --
 
-DROP TABLE IF EXISTS `order`;
+DROP TABLE IF EXISTS `orderlist`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order` (
+CREATE TABLE `orderlist` (
   `Order_id` varchar(100) NOT NULL,
   `Customer` varchar(100) NOT NULL,
   `Total_price` int DEFAULT NULL,
@@ -97,10 +97,10 @@ UNLOCK TABLES;
 -- Table structure for table `order_item`
 --
 
-DROP TABLE IF EXISTS `order_item`;
+DROP TABLE IF EXISTS `order`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `order_item` (
+CREATE TABLE `order` (
   `Order_id` varchar(100) NOT NULL,
   `Item` varchar(100) NOT NULL,
   `Product_id` int DEFAULT NULL,

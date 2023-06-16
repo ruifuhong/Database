@@ -65,15 +65,39 @@ const ProductShow = () => {
     return randomString;
   };
 
+  // const addProduct = async () => {
+  //   const randomString = generateRandomString(20);
+  //   try {
+  //       console.log("total price", product.Price * quantity);
+  //       console.log("Order_id",randomString );
+
+  //       const requestBody = {
+  //               Order_id: randomString,
+  //               Total_price: product.Price * quantity,
+  //       };
+
+  //       await axios.post(`${baseUrl}/cart`, requestBody, {
+  //         headers: { Authorization: localStorage.getItem("auth") },
+  //       });
+  //       alert("cart Success");
+  //   } catch (err) {
+  //       alert(err?.response?.data?.error || "ERROR");
+  //   }
+  // };
+
   const addProduct = async () => {
     const randomString = generateRandomString(20);
     try {
         console.log("total price", product.Price * quantity);
-        console.log("Order_id",randomString );
 
         const requestBody = {
-                Order_id: randomString,
-                Total_price: product.Price * quantity,
+          Item: product.Product_name,
+          Product_id: extractProductId(),
+          Color: selectedColor,
+          Size: selectedSize,
+          Category: product.Category,
+          Quantity: quantity,
+          Price: product.Price * quantity
         };
 
         await axios.post(`${baseUrl}/cart`, requestBody, {
