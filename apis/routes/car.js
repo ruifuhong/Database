@@ -202,10 +202,26 @@ module.exports = (router) => {
                             }
                         });
                     } else {
-                        console.log(results[0]);
                         const order_id = results[0].order_id;
                         console.log(`Existing order_id: ${order_id}`);
                         insertOrderItem(res, order_id, Item, Product_id, Color, Size, Category, Quantity, Price);
+
+                        const updateTotalPriceQuery = `UPDATE orderlist SET total_price = (
+                            SELECT SUM(price)
+                            FROM order_item
+                            WHERE order_item.order_id = '${order_id}'
+                        )
+                        WHERE order_id = '${order_id}'
+                        `;
+
+                        connection.query(updateTotalPriceQuery, (error, data) => {
+                        if (error) {
+                            console.log(error);
+                            res.status(500).json({ error });
+                        } else {
+                            res.json(data);
+                        }
+                        });
                     }
                 }
             });
