@@ -54,7 +54,7 @@ docker ps               # 目前正在跑的docker程式, id從這邊拿 CONTAIN
 docker logs ${id} -f    # 看log (-f是持續看 沒有的話看一次)
 ```
 
-- install package: 
+- Install package
 ```sh
 docker exec -it ${id} sh    # 進去docker container裡面
 npm install ${package}      # install your package
