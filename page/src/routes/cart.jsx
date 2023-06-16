@@ -29,7 +29,7 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
                     params: { Product_id: order.Product_id },
                     headers: { Authorization: localStorage.getItem("auth") },
                 }),
-                axios.get(`${baseUrl}/product/size`, {
+                axios.get(`${baseUrl}/cart/size`, {
                     params: { Product_id: order.Product_id },
                     headers: { Authorization: localStorage.getItem("auth") },
                 }),
@@ -99,6 +99,7 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
 const Cart = () => {
     const [order, setOrder] = useState([]);
     const [shopBar, setShopBar] = useState(false);
+    const [member, setMember] = useState("");
     const navigate = useNavigate();
   
     const getOrder = async () => {
@@ -122,40 +123,48 @@ const Cart = () => {
         alert("Product Deleted");
         await getOrder();
     };
-    const bulidorderlist = async () => {
+    const getMember = async (category) => {
+        console.log("member.jsx");
         try {
-            console.log("結帳");
-            console.log(member);
-            // await axios.post(
-            //     `${baseUrl}/history`,
-            //     {
-            //         Order_id: null,
-            //         Total_price,
-            //     },
-            //     { headers: { Authorization: localStorage.getItem("auth") } }
-            // );
-            // alert("Success");
-            
-            // console.log("total price", order.Price * order.quantity);
-            // console.log("product_id",order.product_id );
+          console.log("member.jsx_try");
+          let data = await axios.get(`${baseUrl}/customer`, {
+            params: category ? { category } : {},
+            headers: { Authorization: localStorage.getItem("auth") },
+          });
     
-            // const requestBody = {
-            //   Order_id,      
-            //   Total_price: order.Price,
-            // };
-    
-            // await axios.post(`${baseUrl}/history`, requestBody, {
-            //   headers: { Authorization: localStorage.getItem("auth") },
-            // });
-            // alert("orderlist Success");
-            
+          console.log("data.data[0]", data.data[0]);
+          setMember(data.data[0].Username);
+          console.log(data.data);
         } catch (err) {
-            alert(err?.response?.data?.error || "ERROR");
+          alert(err?.response?.data?.error || "ERROR");
         }
+      };
+    
+    const bulidorderlist = async (order) => {
+        const requestBody = order.map((order) => {
+            return {
+              customer: member,  
+              product_id: order.Product_id,
+              color: order.Color,
+              size: order.Size,
+              purchase_date: new Date().toISOString().substring(0, 10),
+              category: "MEN",
+            };
+          });
+          
+          console.log(requestBody);
+        
+          try {
+            await axios.post(`${baseUrl}/product_purchased`, requestBody);
+            alert("Product purchased successfully");
+          } catch (error) {
+            alert(error?.response?.data?.error || "Error occurred while purchasing the product");
+          }        
       };
 
     useEffect(() => {
         getOrder();
+        getMember();
     }, []);
 
     return (
@@ -189,7 +198,8 @@ const Cart = () => {
                         ))}
                     </tbody>
                 </table>
-                <button onClick={bulidorderlist}>
+      
+                <button onClick={() => bulidorderlist(order)}>
                     確認結帳
                 </button>
             </main>

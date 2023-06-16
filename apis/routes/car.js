@@ -331,8 +331,57 @@ module.exports = (router) => {
         }
     });
 
+    router.get("/cart/size", async (req, res) => {
+        try {
+            let sqlCommand = `SELECT * FROM order_item where Product_id = ${req.query.Product_id}`;
+            connection.query(sqlCommand, (err, colors) => {
+                if (err) return res.status(500).send("error occurred when searching the data");
+                return res.json(colors.map((item) => item.Size));
+            });
+        } catch (e) {
+            console.error({ error });
+            return res.status(500).send("error occurred when searching the data");
+        }
+    });
 
-
+    router.post("/product_purchased", (req, res) => {
+        if (!req.body.length) {
+          res.status(400).json({ error: "INVALID_PARAMS" });
+          return;
+        }
+      
+        try {
+          const insertPromises = req.body.map((item) => {
+            const { customer, product_id, color, size, purchase_date, category } = item;
+            const sql = `INSERT INTO product_purchased (Customer, Product_id, Color, Size, Purchase_date, Category) VALUES (?, ?, ?, ?, ?, ?)`;
+            return new Promise((resolve, reject) => {
+              connection.query(
+                sql,
+                [customer, product_id, color, size, purchase_date, category],
+                (error, data) => {
+                  if (error) {
+                    console.log(error);
+                    reject(error);
+                  } else {
+                    resolve(data);
+                  }
+                }
+              );
+            });
+          });
+      
+          Promise.all(insertPromises)
+            .then(() => {
+              res.json({ message: "Products purchased successfully" });
+            })
+            .catch((error) => {
+              res.status(500).json({ error });
+            });
+        } catch (e) {
+          res.status(500).send("Error occurred while purchasing the products");
+        }
+      });
+      
 
 
 };
