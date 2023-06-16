@@ -155,6 +155,7 @@ const Cart = () => {
           try {
             await axios.post(`${baseUrl}/product_purchased`, requestBody);
             alert("Product purchased successfully");
+            window.location.href = '/category';
           } catch (error) {
             alert(error?.response?.data?.error || "Error occurred while purchasing the product");
           }        
