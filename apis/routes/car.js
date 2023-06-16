@@ -343,7 +343,7 @@ module.exports = (router) => {
             return res.status(500).send("error occurred when searching the data");
         }
     });
-
+      
     router.post("/product_purchased", (req, res) => {
         if (!req.body.length) {
           res.status(400).json({ error: "INVALID_PARAMS" });
@@ -355,24 +355,43 @@ module.exports = (router) => {
             const { customer, product_id, color, size, purchase_date, category } = item;
             const sql = `INSERT INTO product_purchased (Customer, Product_id, Color, Size, Purchase_date, Category) VALUES (?, ?, ?, ?, ?, ?)`;
             return new Promise((resolve, reject) => {
-              connection.query(
-                sql,
-                [customer, product_id, color, size, purchase_date, category],
-                (error, data) => {
-                  if (error) {
-                    console.log(error);
-                    reject(error);
-                  } else {
-                    resolve(data);
-                  }
+              connection.query(sql, [customer, product_id, color, size, purchase_date, category], (error, data) => {
+                if (error) {
+                  console.log(error);
+                  reject(error);
+                } else {
+                  resolve(data);
                 }
-              );
+              });
             });
           });
       
           Promise.all(insertPromises)
             .then(() => {
-              res.json({ message: "Products purchased successfully" });
+              // Delete from order_item
+              const deleteOrderItemQuery = `
+                DELETE FROM order_item 
+                WHERE order_id IN (SELECT order_id FROM orderlist WHERE customer = ?)
+              `;
+              const customer = req.body[0].customer; // Assuming all items have the same customer value
+      
+              connection.query(deleteOrderItemQuery, [customer], (error, data) => {
+                if (error) {
+                  console.log(error);
+                  res.status(500).json({ error });
+                } else {
+                  // Delete from orderlist
+                  const deleteOrderListQuery = `DELETE FROM orderlist WHERE customer = ?`;
+                  connection.query(deleteOrderListQuery, [customer], (error, data) => {
+                    if (error) {
+                      console.log(error);
+                      res.status(500).json({ error });
+                    } else {
+                      res.json({ message: "Products purchased successfully" });
+                    }
+                  });
+                }
+              });
             })
             .catch((error) => {
               res.status(500).json({ error });
@@ -382,6 +401,6 @@ module.exports = (router) => {
         }
       });
       
-
+      
 
 };

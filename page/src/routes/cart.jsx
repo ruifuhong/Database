@@ -151,8 +151,6 @@ const Cart = () => {
               category: "MEN",
             };
           });
-          
-          console.log(requestBody);
         
           try {
             await axios.post(`${baseUrl}/product_purchased`, requestBody);
