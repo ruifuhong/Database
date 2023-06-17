@@ -45,7 +45,7 @@ const ProductShow = () => {
         headers: { Authorization: localStorage.getItem("auth") },
       });
 
-      console.log("Add to wishlist successful");     
+      console.log("Add to wishlist successful");
     } catch (err) {
       console.error("Add to wishlist error:", err);
       alert(err?.response?.data?.error || "ERROR");
@@ -68,27 +68,23 @@ const ProductShow = () => {
   const addProduct = async () => {
     const randomString = generateRandomString(20);
     try {
-        console.log("total price", product.Price * quantity);
+      console.log("total price", product.Price * quantity);
+      console.log("Order_id", randomString);
 
-        const requestBody = {
-          Item: product.Product_name,
-          Product_id: extractProductId(),
-          Color: selectedColor,
-          Size: selectedSize,
-          Category: product.Category,
-          Quantity: quantity,
-          Price: product.Price * quantity
-        };
+      const requestBody = {
+        Order_id: randomString,
+        Total_price: product.Price * quantity,
+      };
 
-        await axios.post(`${baseUrl}/cart`, requestBody, {
-          headers: { Authorization: localStorage.getItem("auth") },
-        });
-        alert("cart Success");
+      await axios.post(`${baseUrl}/cart`, requestBody, {
+        headers: { Authorization: localStorage.getItem("auth") },
+      });
+      alert("cart Success");
     } catch (err) {
-        alert(err?.response?.data?.error || "ERROR");
+      alert(err?.response?.data?.error || "ERROR");
     }
   };
- 
+
   const extractProductId = () => {
     const pathParts = currentPath.split("/");
     const extractedProductId = pathParts[pathParts.length - 1];
@@ -130,22 +126,33 @@ const ProductShow = () => {
   }
 
   return (
+    <>
+    <header className="bg-dark py-5">
+      <div className="container px-4 px-lg-5 my-5">
+        <div className="text-center text-white">
+          <h1 className="display-4 fw-bolder">Shop in style</h1>
+          <p className="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+        </div>
+      </div>
+    </header>
+
     <div className="product-container">
       <div className="left-section">
         <div className="product-image">
           <img
             src={product.Image}
             alt="Product Image"
-            style={{ width: "800px", height: "auto" }}
+            style={{ width: "100%", height: "auto" }}
           />
         </div>
       </div>
       <div className="middle-section">
         <div className="product-details">
           <h2 className="product-title">{product.Product_name}</h2>
-          <div className="product-id">id: {extractProductId()}</div>
+          <br/>
+          <div className="product-id">ID : {extractProductId()}</div>
           <div className="product-color">
-            <label htmlFor="color-select">Color:</label>
+            <label htmlFor="color-select">Color : </label>
             <select
               id="color-select"
               value={selectedColor}
@@ -157,7 +164,7 @@ const ProductShow = () => {
             </select>
           </div>
           <div className="product-size">
-            <label htmlFor="size-select">Size:</label>
+            <label htmlFor="size-select">Size : </label>
             <select
               id="size-select"
               value={selectedSize}
@@ -168,19 +175,25 @@ const ProductShow = () => {
               <option value="large">Large</option>
             </select>
           </div>
-          <div className="product-price">總共${product.Price * quantity}元</div>
+          <br/>
+          <div className="product-price">
+            Total Price : ${product.Price * quantity}
+          </div>
         </div>
       </div>
       <div className="right-section">
         <div className="product-buttons">
           <div className="wishlist-container">
-            <button className="add-to-wishlist-button" onClick={addToWishList}>
+            <button
+              className="add-to-wishlist-button"
+              onClick={addToWishList}
+            >
               Add to Wishlist
             </button>
           </div>
           <div className="quantity-container">
             <div className="quantity-label-container">
-              <label htmlFor="quantity-input">購買數量:</label>
+              <label htmlFor="quantity-input">Quantity:</label>
             </div>
             <input
               type="number"
@@ -198,6 +211,7 @@ const ProductShow = () => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 
