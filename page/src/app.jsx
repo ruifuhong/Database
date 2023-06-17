@@ -5,6 +5,8 @@ import Login from "./routes/login";
 import SingUp from "./routes/signup";
 import Member from "./routes/member";
 import Product_show from "./routes/show_product";
+import Not_login from "./routes/not_login";
+
 import { Route, Routes, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -55,6 +57,7 @@ const App = () => {
                 <Route path="/category" element={<Categories />} />
                 <Route path="/member" element={<Member />} />
                 <Route path="/show_product/*" element={<Product_show />} />
+                <Route path="/not_login/*" element={<Not_login />} />
                 <Route path="/*" element={<Login />} />
             </Routes>
             <footer className="bg-light text-center py-3">
