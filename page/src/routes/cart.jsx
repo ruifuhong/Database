@@ -100,6 +100,8 @@ const Cart = () => {
     const [order, setOrder] = useState([]);
     const [shopBar, setShopBar] = useState(false);
     const [member, setMember] = useState("");
+    const [totalAmount, setTotalAmount] = useState(0);
+
     const navigate = useNavigate();
   
     const getOrder = async () => {
@@ -107,8 +109,11 @@ const Cart = () => {
             const data = await axios.get(`${baseUrl}/cart`, {
                 headers: { Authorization: localStorage.getItem("auth") },
             });
-            console.log(data);
-            setOrder(data.data);
+
+            const orderData = data.data;
+            const amount = orderData.reduce((total, item) => total + item.Price, 0);
+            setOrder(orderData);
+            setTotalAmount(amount);
         } catch (err) {
             console.error(err);
             alert(err?.response?.error || "ERROR");
@@ -198,6 +203,9 @@ const Cart = () => {
                     </tbody>
                 </table>
       
+                <br />
+                <p>總金額：{totalAmount}</p>
+
                 <button onClick={() => bulidorderlist(order)}>
                     確認結帳
                 </button>
