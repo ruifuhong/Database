@@ -57,55 +57,35 @@ const Member = () => {
                     <div className="row">
                         <div className="col-md-4 mb-3">
                             <label htmlFor="account-input">Account:</label>
-                            <div className="input-group">
-                                <input type="text" className="form-control" id="account-input" value={member.Username} disabled />
-                            </div>
-                        </div>
-                    </div>
-    
-                    <div className="row">
-                        <div className="col-md-4 mb-3">
-                            <label htmlFor="password-input">Password:</label>
-                            <div className="input-group">
-                                <input type="password" className="form-control" id="password-input" value="" disabled />
-                            </div>
+                            <div className="form-control custom-div" id="account-input" style={{ backgroundColor: "#f1f1f1" }}>{member.Username}</div>
                         </div>
                     </div>
     
                     <div className="row">
                         <div className="col-md-4 mb-3">
                             <label htmlFor="firstname-input">First Name:</label>
-                            <div className="input-group">
-                                <input type="text" className="form-control" id="firstname-input" value={member.First_name} disabled required />
-                            </div>
+                            <div className="form-control custom-div" id="firstname-input" style={{ backgroundColor: "#f1f1f1" }}>{member.First_name}</div>
                         </div>
                     </div>
     
                     <div className="row">
                         <div className="col-md-4 mb-3">
                             <label htmlFor="lastname-input">Last Name:</label>
-                            <div className="input-group">
-                                <input type="text" className="form-control" id="lastname-input" value={member.Last_name} disabled required />
-                            </div>
+                            <div className="form-control custom-div" id="lastname-input" style={{ backgroundColor: "#f1f1f1" }}>{member.Last_name}</div>
                         </div>
                     </div>
     
                     <div className="row">
                         <div className="col-md-4 mb-3">
                             <label htmlFor="address-input">Address:</label>
-                            <div className="input-group">
-                                <input type="text" id="address-input" className="form-control" value={member.Address} disabled required />
-                            </div>
+                            <div className="form-control custom-div" id="address-input" style={{ backgroundColor: "#f1f1f1" }}>{member.Address}</div>
                         </div>
                     </div>
     
                     <div className="row">
                         <div className="col-md-4 mb-3">
                             <label htmlFor="join-date-input">Join Date:</label>
-                            <div className="input-group">
-                                <input type="date" id="join-date-input" className="form-control" value={member.Joined_since ? new Date(member.Joined_since).toISOString().split('T')[0] : ''}
- disabled required />
-                            </div>
+                            <div className="form-control custom-div" id="join-date-input" style={{ backgroundColor: "#f1f1f1" }}>{member.Joined_since ? new Date(member.Joined_since).toISOString().split('T')[0] : ''}</div>
                         </div>
                     </div>
                 </div>
@@ -113,4 +93,5 @@ const Member = () => {
         </>
     );
 }
+
 export default Member;
