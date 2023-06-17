@@ -154,9 +154,6 @@ const Order = () => {
                         ))}
                     </tbody>
                 </table>
-                <button className="btn btn-outline-dark" type="submit">
-                    確認結帳
-                </button>
             </main>
         </>
     );
