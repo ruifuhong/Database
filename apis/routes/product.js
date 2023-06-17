@@ -1,4 +1,5 @@
 const connection = require("../db");
+const { verify } = require("../verify");
 
 module.exports = (router) => {
     router.post("/product", (req, res) => {
@@ -21,6 +22,8 @@ module.exports = (router) => {
             res.status(500).json({ message: "資料插入失敗" });
         }
     });
+
+
 
     router.get("/product", async (req, res) => {
         let sqlCommand = "SELECT * FROM product";
@@ -59,7 +62,38 @@ module.exports = (router) => {
         }
     });
 
+    router.get("/username", (req, res) => {
+        try {
+            const Customer = verify(req);
+            if (Customer === false) {
+                res.status(400).json({ error: "INVALID_USER" });
+                return;
+            }
+            
+            const sql = `SELECT Username, Joined_since 
+                         FROM customer 
+                         WHERE Username = '${Customer}'
+                        `;
 
+            connection.query(sql, (error, data) => {
+                if (error) {
+                    console.error(error); // 在控制台印出錯誤訊息
+                    res.status(500).json({ error });
+                } else if (data.length === 0) {
+                    res.status(404).json({ error: "USER_NOT_FOUND" });
+                } else {
+                    const userData = {
+                        username: data[0].Username,
+                        joined_since: data[0].Joined_since
+                    };
+                    res.json(userData);
+                }
+            });
+        } catch (e) {
+          console.error(e); // 在控制台印出錯誤訊息
+          res.status(500).send(" Error occurred when getting the data");
+        }
+      });
 
 
 
