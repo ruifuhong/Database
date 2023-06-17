@@ -5,6 +5,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 
 const Categories = () => {
     const [product, setProduct] = useState([]);
+    const [userData, setUserData] = useState({});
 
     const navigate = useNavigate();
     const getProduct = async (category) => {
@@ -18,6 +19,18 @@ const Categories = () => {
             alert(err?.response?.data?.error || "ERROR");
         }
     };
+
+    const fetchData = async () => {
+        try {
+          const response = await axios.get(`${baseUrl}/username`, {
+            headers: { Authorization: localStorage.getItem("auth") },
+          });
+          setUserData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      };
+      
 
     const addProduct = async (Product_id, Category) => {
         try {
@@ -39,14 +52,16 @@ const Categories = () => {
 
     useEffect(() => {
         getProduct();
+        fetchData();
     }, []);
 
     return (
         <>
             <div className="frame_1">
                 <div className="block_1">
-                    <div className="Username">Username</div>
-                    <div className="Username">加入時間</div>
+                    <div className="Username">{userData.username}</div>
+                    <div className="Username">{new Date(userData.joined_since).toLocaleDateString()}</div>
+
                 </div>
 
                 <div className="block_2">
