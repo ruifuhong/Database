@@ -26,6 +26,7 @@ const ProductShow = () => {
       setMember(data.data[0].Username);
       console.log(data.data);
     } catch (err) {
+      window.location.href = "/not_login";
       alert(err?.response?.data?.error || "ERROR");
     }
   };

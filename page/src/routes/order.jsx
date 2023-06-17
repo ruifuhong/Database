@@ -35,6 +35,7 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
             setColors(["", ...colorInfo.data]);
             setSizes(["", ...sizeInfo.data]);
         } catch (err) {
+            window.location.href = "/not_login";
             alert(err.response.data.error || "ERROR");
         }
     };
@@ -106,6 +107,7 @@ const Order = () => {
             console.log(data);
             setOrder(data.data);
         } catch (err) {
+            window.location.href = "/not_login";
             console.error(err);
             alert(err?.response?.error || "購物車沒有商品");
         }

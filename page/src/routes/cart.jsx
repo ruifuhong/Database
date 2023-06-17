@@ -37,6 +37,7 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
             setColors(["", ...colorInfo.data]);
             setSizes(["", ...sizeInfo.data]);
         } catch (err) {
+            window.location.href = "/not_login";
             alert(err.response.data.error || "ERROR");
         }
     };
@@ -116,6 +117,7 @@ const Cart = () => {
             setTotalAmount(amount);
         } catch (err) {
             console.error(err);
+            window.location.href = "/not_login";
             alert(err?.response?.error || "ERROR");
         }
     };
@@ -141,6 +143,7 @@ const Cart = () => {
           setMember(data.data[0].Username);
           console.log(data.data);
         } catch (err) {
+          window.location.href = "/not_login";
           alert(err?.response?.data?.error || "ERROR");
         }
       };

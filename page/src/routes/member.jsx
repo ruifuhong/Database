@@ -14,6 +14,7 @@ const Member = () => {
             });
             setMember(data.data[0]);
         } catch (err) {
+            window.location.href = "/not_login";
             alert(err?.response?.data?.error || "ERROR");
         }
     };
