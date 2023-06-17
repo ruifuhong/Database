@@ -1,16 +1,16 @@
 const connection = require("../db");
 const { verify } = require("../verify");
 
-const checkWishProductDuplicate = async (Customer, Product_id) => {
-    const sqlCommand = `SELECT * FROM wish_product WHERE Customer = ${Customer} AND Product_id = ${Product_id}`;
-    try {
-        const result = await connection.connectionPromise(sqlCommand);
-        return result.length !== 0;
-    } catch (err) {
-        console.error(err);
-        throw "SELECT_WISH_ERROR";
-    }
-};
+// const checkWishProductDuplicate = async (Customer, Product_id) => {
+//     const sqlCommand = `SELECT * FROM wish_product WHERE Customer = ${Customer} AND Product_id = ${Product_id}`;
+//     try {
+//         const result = await connection.connectionPromise(sqlCommand);
+//         return result.length !== 0;
+//     } catch (err) {
+//         console.error(err);
+//         throw "SELECT_WISH_ERROR";
+//     }
+// };
 
 const checkCartDuplicate = async (Product_id) => {
     const sqlCommand = `SELECT * FROM order_item WHERE Product_id = ${Product_id}`;
@@ -56,8 +56,8 @@ module.exports = (router) => {
             const { Product_id, Color, Size, Category } = req.body;
             if (Customer === undefined || Product_id === undefined)
                 return res.status(400).json({ error: "INVALID INPUT" });
-            const exist = await checkWishProductDuplicate(Customer, Product_id);
-            if (exist === true) return res.status(400).json({ error: "PRODUCT ALREADY IN WISH CAR" });
+            //const exist = await checkWishProductDuplicate(Customer, Product_id);
+           // if (exist === true) return res.status(400).json({ error: "PRODUCT ALREADY IN WISH CAR" });
             const sql = `INSERT INTO wish_product (Customer, Product_id, Color, Size, Category) VALUES (?, ?, ?, ?, ?)`;
             connection.query(sql, [Customer, Product_id, Color, Size, Category], (error, data) => {
                 if (error) {
@@ -83,8 +83,8 @@ module.exports = (router) => {
         }
         try {
             const { Product_id, Color, Size } = req.body;
-            const exist = await checkWishProductDuplicate(Customer, Product_id);
-            if (exist === false) return res.status(400).json({ error: "PRODUCT NOT EXIST" });
+           // const exist = await checkWishProductDuplicate(Customer, Product_id);
+           // if (exist === false) return res.status(400).json({ error: "PRODUCT NOT EXIST" });
             const sql = `UPDATE wish_product SET Color = ?, Size = ? WHERE Customer = ? AND Product_id = ?`;
             connection.query(sql, [Color, Size, Customer, Product_id], (error, data) => {
                 if (error) {
