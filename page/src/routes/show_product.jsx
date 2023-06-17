@@ -72,8 +72,13 @@ const ProductShow = () => {
       console.log("Order_id", randomString);
 
       const requestBody = {
-        Order_id: randomString,
-        Total_price: product.Price * quantity,
+        Item: product.Product_name,
+        Product_id: extractProductId(),
+        Color: selectedColor,
+        Size: selectedSize,
+        Category: product.Category,
+        Quantity: quantity,
+        Price: product.Price * quantity
       };
 
       await axios.post(`${baseUrl}/cart`, requestBody, {

@@ -107,7 +107,7 @@ const Order = () => {
             setOrder(data.data);
         } catch (err) {
             console.error(err);
-            alert(err?.response?.error || "ERROR");
+            alert(err?.response?.error || "購物車沒有商品");
         }
     };
 
