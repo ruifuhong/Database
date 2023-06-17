@@ -22,6 +22,8 @@ module.exports = (router) => {
         }
     });
 
+
+
     router.get("/product", async (req, res) => {
         let sqlCommand = "SELECT * FROM product";
         if (req.query.category) sqlCommand += ` where category = '${req.query.category}'`;
@@ -59,7 +61,32 @@ module.exports = (router) => {
         }
     });
 
-
+    router.get("/username", (req, res) => {
+        try {
+          const sql = `SELECT Username, Joined_since FROM customer WHERE Username = 'wu4shan'`;
+      
+          connection.query(sql, (error, data) => {
+            if (error) {
+              console.error(error); // 在控制台印出錯誤訊息
+              res.status(500).json({ error });
+            } else if (data.length === 0) {
+              res.status(404).json({ error: "USER_NOT_FOUND" });
+            } else {
+              const userData = {
+                username: data[0].Username,
+                joined_since: data[0].Joined_since
+              };
+              res.json(userData);
+            }
+          });
+        } catch (e) {
+          console.error(e); // 在控制台印出錯誤訊息
+          res.status(500).send(" 在控制台印出錯誤訊息 Error occurred when getting the data");
+        }
+      });
+      
+      
+      
 
 
 
