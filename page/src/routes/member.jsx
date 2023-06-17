@@ -7,17 +7,12 @@ const Member = () => {
     const [member, setMember] = useState("");
     const navigate = useNavigate();
     const getMember = async (category) => {
-        console.log('member.jsx');
         try {
-            console.log('member.jsx_try');
             let data = await axios.get(`${baseUrl}/customer`, {
                 params: category ? { category } : {},
                 headers: { Authorization: localStorage.getItem("auth") },
             });
-
-            console.log(data.data);
             setMember(data.data[0]);
-            console.log(data.data);
         } catch (err) {
             alert(err?.response?.data?.error || "ERROR");
         }
