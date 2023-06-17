@@ -97,10 +97,8 @@ const SingUp = () => {
                                     onChange={(e) => setConfirmPassword(e.target.value)}
                                 />
                             </div>
-                            <div style={{ display: "flex", justifyContent: "space-between" }}>
-                                <button className="btn btn-primary" onClick={() => navigate("/login")}>
-                                    Sign in
-                                </button>
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                
                                 <button className="btn btn-primary" onClick={regist}>
                                     註冊
                                 </button>
