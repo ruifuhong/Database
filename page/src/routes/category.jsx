@@ -60,7 +60,8 @@ const Categories = () => {
             <div className="frame_1">
                 <div className="block_1">
                     <div className="Username">{userData.username}</div>
-                    <div className="Username">{userData.joined_since}</div>
+                    <div className="Username">{new Date(userData.joined_since).toLocaleDateString()}</div>
+
                 </div>
 
                 <div className="block_2">
