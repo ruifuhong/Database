@@ -91,7 +91,7 @@ const App = () => {
                 <Route path="/not_login/*" element={<Not_login />} />
                 <Route path="/*" element={<Login />} />
             </Routes>
-            <footer className="bg-light text-center py-3">
+            <footer className="bg-light text-center py-3 footer-fixed">
                 <div className="container">
                     <span className="text-muted">版權聲明 &copy; 2023</span>
                 </div>
