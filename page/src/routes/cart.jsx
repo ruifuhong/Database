@@ -67,18 +67,10 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
                 {order.Product_id}
             </td>
             <td>
-                <select onChange={(e) => updateWishCar({ Color: e.target.value })} value={orderInfo.Color || ""}>
-                    {colors.map((item, index) => (
-                        <option key={index}>{item}</option>
-                    ))}
-                </select>
+                {order.Color}
             </td>
             <td>
-                <select onChange={(e) => updateWishCar({ Size: e.target.value })} value={orderInfo.Size || ""}>
-                    {sizes.map((item, index) => (
-                        <option key={index}>{item}</option>
-                    ))}
-                </select>
+                {order.Size}
             </td>
             <td>{order.Quantity}</td>
             <td>{order.Price}</td>
@@ -116,12 +108,14 @@ const Cart = () => {
             setOrder(orderData);
             setTotalAmount(amount);
         } catch (err) {
-            console.error(err);
+            if (localStorage.getItem("auth")) {
+            alert("購物車內沒有東西");
+            } else {
             window.location.href = "/not_login";
-            alert(err?.response?.error || "ERROR");
+            }            
         }
     };
-
+         
     const deleteWishCar = async (Product_id) => {
         await axios.delete(`${baseUrl}/cart`, {
             params: { Product_id },
@@ -130,18 +124,14 @@ const Cart = () => {
         alert("Product Deleted");
         await getOrder();
     };
+    
     const getMember = async (category) => {
-        console.log("member.jsx");
         try {
-          console.log("member.jsx_try");
           let data = await axios.get(`${baseUrl}/customer`, {
             params: category ? { category } : {},
             headers: { Authorization: localStorage.getItem("auth") },
           });
-    
-          console.log("data.data[0]", data.data[0]);
           setMember(data.data[0].Username);
-          console.log(data.data);
         } catch (err) {
           window.location.href = "/not_login";
           alert(err?.response?.data?.error || "ERROR");
@@ -165,7 +155,7 @@ const Cart = () => {
             alert("Product purchased successfully");
             window.location.href = '/category';
           } catch (error) {
-            alert(error?.response?.data?.error || "Error occurred while purchasing the product");
+            alert(error?.response?.data?.error || "你的購物車內沒有東西");
           }        
       };
 
@@ -191,7 +181,7 @@ const Cart = () => {
                         <tr>
                             <th>編號</th>
                             <th>商品名稱</th>
-                            <th>Product_ID</th>
+                            <th>商品ID</th>
                             <th>顏色</th>
                             <th>尺寸</th>
                             <th>數量</th>

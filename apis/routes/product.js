@@ -36,6 +36,45 @@ module.exports = (router) => {
         }
     });
 
+    router.get("/product/getcolor", async (req, res) => {
+        try {
+          const { Product_id } = req.query;
+          console.log(Product_id);
+          const sqlCommand = `SELECT Color FROM product_color WHERE Product_id = ?`;
+          connection.query(sqlCommand, [Product_id], (err, colors) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).send("Error occurred when searching the data");
+            }
+            const colorOptions = colors.map((item) => item.Color);
+            return res.json(colorOptions);
+          });
+        } catch (e) {
+          console.error(e);
+          return res.status(500).send("Error occurred when searching the data");
+        }
+      });
+      
+      router.get("/product/getsize", async (req, res) => {
+        try {
+          const { Product_id } = req.query;
+          console.log(Product_id);
+          const sqlCommand = `SELECT Size FROM product_size WHERE Product_id = ?`;
+          connection.query(sqlCommand, [Product_id], (err, sizes) => {
+            if (err) {
+              console.error(err);
+              return res.status(500).send("Error occurred when searching the data");
+            }
+            const sizeOptions = sizes.map((item) => item.Size);
+            return res.json(sizeOptions);
+          });
+        } catch (e) {
+          console.error(e);
+          return res.status(500).send("Error occurred when searching the data");
+        }
+      });
+      
+
     router.get("/product/color", async (req, res) => {
         try {
             let sqlCommand = `SELECT * FROM product_color where Product_id = ${req.query.Product_id}`;
