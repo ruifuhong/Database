@@ -9,25 +9,54 @@ const ProductShow = () => {
   const [member, setMember] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [id, setId] = useState(0);
-  const [selectedColor, setSelectedColor] = useState("red");
-  const [selectedSize, setSelectedSize] = useState("small");
+  const [selectedColor, setSelectedColor] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [colorOptions, setColorOptions] = useState([]);
+  const [sizeOptions, setSizeOptions] = useState([]);
   const currentPath = window.location.pathname;
 
   const getMember = async (category) => {
-    console.log("member.jsx");
     try {
-      console.log("member.jsx_try");
       let data = await axios.get(`${baseUrl}/customer`, {
         params: category ? { category } : {},
         headers: { Authorization: localStorage.getItem("auth") },
       });
-
-      console.log("data.data[0]", data.data[0]);
       setMember(data.data[0].Username);
-      console.log(data.data);
     } catch (err) {
       alert(err?.response?.data?.error || "ERROR");
     }
+  };
+
+
+  const getItemInfo = async () => {
+    try {
+      const extractedProductId = extractProductId();
+
+      const [colorInfo, sizeInfo] = await Promise.all([
+        axios.get(`${baseUrl}/product/getcolor`, {
+          params: { Product_id: Number(extractedProductId)},
+          headers: { Authorization: localStorage.getItem("auth") },
+        }),
+        axios.get(`${baseUrl}/product/getsize`, {
+          params: { Product_id: Number(extractedProductId)},
+          headers: { Authorization: localStorage.getItem("auth") },
+        }),
+      ]);
+      setColorOptions(["", ...colorInfo.data]);
+      setSizeOptions(["", ...sizeInfo.data]);
+      setSelectedColor(colorInfo.data[0] || "");
+      setSelectedSize(sizeInfo.data[0] || "");
+    } catch (err) {
+      alert(err?.response?.data?.error || "ERROR");
+    }
+  };
+
+  const handleColorChange = (e) => {
+    setSelectedColor(e.target.value);
+  };
+
+  const handleSizeChange = (e) => {
+    setSelectedSize(e.target.value);
   };
 
   const addToWishList = async () => {
@@ -106,7 +135,6 @@ const ProductShow = () => {
           headers: { Authorization: localStorage.getItem("auth") },
         }
       );
-      console.log("response.data ", response.data);
       setProduct(response.data);
       setId(extractedProductId);
     } catch (err) {
@@ -121,9 +149,7 @@ const ProductShow = () => {
 
   useEffect(() => {
     getMember();
-  }, []);
-
-  useEffect(() => {
+    getItemInfo();
     getProduct();
   }, []);
 
@@ -159,27 +185,23 @@ const ProductShow = () => {
           <div className="product-id">ID : {extractProductId()}</div>
           <div className="product-color">
             <label htmlFor="color-select">Color : </label>
-            <select
-              id="color-select"
-              value={selectedColor}
-              onChange={(e) => setSelectedColor(e.target.value)}
-            >
-              <option value="red">Red</option>
-              <option value="green">Green</option>
-              <option value="blue">Blue</option>
-            </select>
+            <select id="color-select" value={selectedColor} onChange={handleColorChange}>
+            {colorOptions.map((color, index) => (
+              <option key={index} value={color}>
+                {color}
+              </option>
+            ))}
+          </select>
           </div>
           <div className="product-size">
             <label htmlFor="size-select">Size : </label>
-            <select
-              id="size-select"
-              value={selectedSize}
-              onChange={(e) => setSelectedSize(e.target.value)}
-            >
-              <option value="small">Small</option>
-              <option value="medium">Medium</option>
-              <option value="large">Large</option>
-            </select>
+            <select id="size-select" value={selectedSize} onChange={handleSizeChange}>
+            {sizeOptions.map((size, index) => (
+              <option key={index} value={size}>
+                {size}
+              </option>
+            ))}
+          </select>
           </div>
           <br/>
           <div className="product-price">
