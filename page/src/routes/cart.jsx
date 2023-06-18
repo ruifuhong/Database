@@ -129,9 +129,7 @@ const Cart = () => {
     };
     
     const getMember = async (category) => {
-        console.log("member.jsx");
         try {
-          console.log("member.jsx_try");
           let data = await axios.get(`${baseUrl}/customer`, {
             params: category ? { category } : {},
             headers: { Authorization: localStorage.getItem("auth") },
@@ -162,7 +160,7 @@ const Cart = () => {
             alert("Product purchased successfully");
             window.location.href = '/category';
           } catch (error) {
-            alert(error?.response?.data?.error || "Error occurred while purchasing the product");
+            alert(error?.response?.data?.error || "你的購物車內沒有東西");
           }        
       };
 

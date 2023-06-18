@@ -59,14 +59,13 @@ const Categories = () => {
         <>
             <div className="frame_1">
                 <div className="block_1">
-                    <div className="Username">{userData.username}</div>
-                    <div className="Username">{new Date(userData.joined_since).toLocaleDateString()}</div>
-
+                    <div className="Username">{userData.username && userData.username}</div>
+                    <div className="Username">{userData.joined_since && new Date(userData.joined_since).toLocaleDateString()}</div>
                 </div>
 
                 <div className="block_2">
                     <a className="shop_record" href="#!">
-                        購買記錄
+                        購買紀錄
                     </a>
                     <a className="wish_list" href="" onClick={() => navigate("/order")}>
                         願望清單
