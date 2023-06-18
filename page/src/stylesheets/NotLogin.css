@@ -1,0 +1,24 @@
+.not-login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start; /* 将内容偏上半部分 */
+  height: 100vh;
+  margin-bottom: auto; /* 添加底部间距以将内容推向顶部 */
+}
+
+.not-login-heading {
+  font-size: 128px;
+  text-align: center;
+}
+
+.not-login-countdown {
+  font-size: 24px;
+  text-align: center;
+}
+
+.not-login-link {
+  font-size: 18px;
+  text-align: center;
+  margin-top: 16px;
+}

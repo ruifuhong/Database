@@ -37,6 +37,7 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
             setColors(["", ...colorInfo.data]);
             setSizes(["", ...sizeInfo.data]);
         } catch (err) {
+            window.location.href = "/not_login";
             alert(err.response.data.error || "ERROR");
         }
     };
@@ -107,7 +108,11 @@ const Cart = () => {
             setOrder(orderData);
             setTotalAmount(amount);
         } catch (err) {
+            if (localStorage.getItem("auth")) {
             alert("購物車內沒有東西");
+            } else {
+            window.location.href = "/not_login";
+            }            
         }
     };
          
@@ -128,6 +133,7 @@ const Cart = () => {
           });
           setMember(data.data[0].Username);
         } catch (err) {
+          window.location.href = "/not_login";
           alert(err?.response?.data?.error || "ERROR");
         }
       };
