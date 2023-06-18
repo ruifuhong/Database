@@ -69,8 +69,8 @@ const Categories = () => {
                 <div className="block_2">
                     {isLoggedIn ? (
                         <>
-                            <a className="shop_record" href="#!">
-                                購買紀錄
+                            <a className="shop_record" href="" onClick={() => navigate("/purchase_history")}>
+                                購買記錄
                             </a>
                             <a className="wish_list" href="" onClick={() => navigate("/order")}>
                                 願望清單

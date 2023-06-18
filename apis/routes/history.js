@@ -32,6 +32,32 @@ module.exports = (router) => {
         }
     });
 
-  
-   
+    router.get("/history", (req, res) => {
+        try {
+            const Customer = verify(req);
+            if (Customer === false) {
+                res.status(400).json({ error: "INVALID_USER" });
+                return;
+            }
+            //const sql = `SELECT * FROM final.product_purchased WHERE Customer = '${Customer}'`;
+
+            
+            const sql = `SELECT product_purchased.Customer, product.Product_name ,product_purchased.Product_id, product_purchased.Color, product_purchased.Size, product.Price, product_purchased.Purchase_date
+                        FROM  product_purchased
+                        JOIN   product
+                        ON product_purchased.Product_id = product.Product_id
+                        WHERE product_purchased.Customer = '${Customer}'`;
+
+            connection.query(sql, (error, data) => {
+                if (error) {
+                    res.status(500).json({ error });
+                } else {
+                    res.json(data);
+                }
+            });
+        } catch (e) {
+            res.status(500).send("error occurred when getting the data");
+        }
+    });
+
 };
