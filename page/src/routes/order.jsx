@@ -19,6 +19,7 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
     const [colors, setColors] = useState([null]);
     const [sizes, setSizes] = useState([null]);
     const [orderInfo, setOrderInfo] = useState(order);
+    const currentPath = window.location.pathname;
 
     const getItemInfo = async () => {
         try {
@@ -38,6 +39,51 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
             alert(err.response.data.error || "ERROR");
         }
     };
+
+    const generateRandomString = (length) => {
+        const characters =
+          "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        let randomString = "";
+    
+        for (let i = 0; i < length; i++) {
+          const randomIndex = Math.floor(Math.random() * characters.length);
+          randomString += characters.charAt(randomIndex);
+        }
+    
+        return randomString;
+      };
+    
+    const addProduct = async () => {
+        const randomString = generateRandomString(20);
+        try {
+
+          const requestBody = {
+            Item: order.Product_name,
+            Product_id:  order.Product_id,
+            Color: orderInfo.Color,
+            Size: orderInfo.Size ,
+            Category: order.Category,
+            Quantity: 1,
+            Price: order.Price
+          };
+          await axios.post(`${baseUrl}/putcart`, requestBody, {
+            headers: { Authorization: localStorage.getItem("auth") },
+          });
+          alert("cart Success");
+        } catch (err) {
+            console.log(err); // 輸出完整的錯誤訊息
+            console.log(err.response); // 輸出回應物件 (response object)
+            console.log(err.response.data); // 輸出回應的資料 (response data)
+            console.log(err?.response?.data?.error);
+          alert(err?.response?.data?.error || "ERROR");
+        }
+    };
+
+    const extractProductId = () => {
+        const pathParts = currentPath.split("/");
+        const extractedProductId = pathParts[pathParts.length - 1];
+        return extractedProductId;
+      };
 
     const updateWishCar = async (updates) => {
         try {
@@ -78,7 +124,8 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
                 </select>
             </td>
             <td>{order.Price}</td>
-            <td><p style={{ cursor: "pointer", margin: 0, padding: 0 }}>+</p></td>
+            <td><p   onClick={addProduct}
+            style={{ cursor: "pointer", margin: 0, padding: 0 }}>+</p></td>
             <td>
                 <a style={{ cursor: "pointer" }} onClick={() => deleteWishCar(order.Product_id)}>
                     <img
