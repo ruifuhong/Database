@@ -98,9 +98,6 @@ const ProductShow = () => {
   const addProduct = async () => {
     const randomString = generateRandomString(20);
     try {
-      console.log("total price", product.Price * quantity);
-      console.log("Order_id", randomString);
-
       const requestBody = {
         Item: product.Product_name,
         Product_id: extractProductId(),
@@ -227,7 +224,7 @@ const ProductShow = () => {
               type="number"
               id="quantity-input"
               value={quantity}
-              min="0"
+              min="１"
               onChange={handleQuantityChange}
             />
           </div>
