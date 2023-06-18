@@ -115,11 +115,10 @@ const Cart = () => {
             setOrder(orderData);
             setTotalAmount(amount);
         } catch (err) {
-            console.error(err);
-            alert(err?.response?.error || "ERROR");
+            alert("購物車內沒有東西");
         }
     };
-
+         
     const deleteWishCar = async (Product_id) => {
         await axios.delete(`${baseUrl}/cart`, {
             params: { Product_id },
@@ -128,6 +127,7 @@ const Cart = () => {
         alert("Product Deleted");
         await getOrder();
     };
+    
     const getMember = async (category) => {
         console.log("member.jsx");
         try {

@@ -238,7 +238,7 @@ module.exports = (router) => {
           // 直接使用指定 Customer 的 order_id
           const getOrderQuery = `
             SELECT order_id
-            FROM orderlist
+            FROM orderlist 
             WHERE Customer = '${Customer}'
             LIMIT 1
           `;
@@ -247,7 +247,8 @@ module.exports = (router) => {
             if (error) {
               res.status(500).json({ error });
             } else if (results.length === 0) {
-              res.status(404).json({ error: "Order not found" });
+                alert("oder not found");
+            //   res.status(404).json({ error: "Order not found" });
             } else {
               const order_id = results[0].order_id;
       
@@ -280,8 +281,8 @@ module.exports = (router) => {
             return;
         }
         try {
-            const sql = `DELETE FROM order_item WHERE Product_id = ?`;
-            connection.query(sql, [Customer, req.query.Product_id], (error, data) => {
+            const sql = `DELETE FROM order_item WHERE Product_id = ? `;
+            connection.query(sql, [req.query.Product_id], (error, data) => {
                 if (error) {
                     console.log(error);
                     res.status(500).json({ error });

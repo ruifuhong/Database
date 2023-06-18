@@ -46,6 +46,7 @@ const ProductShow = () => {
       });
 
       console.log("Add to wishlist successful");
+      alert("Add to wishlist successful");
     } catch (err) {
       console.error("Add to wishlist error:", err);
       alert(err?.response?.data?.error || "ERROR");
