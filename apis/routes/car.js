@@ -302,11 +302,11 @@ module.exports = (router) => {
             return;
         }
         try {
-            const { Product_id, Color, Size, Quantity } = req.body;
+            const { Product_id, Color, Size,  } = req.body;
             const exist = await checkCartDuplicate( Product_id);
             if (exist === false) return res.status(400).json({ error: "PRODUCT NOT EXIST" });
-            const sql = `UPDATE order_item SET Color = ?, Size = ? Quantity = ? WHERE Product_id = ?`;
-            connection.query(sql, [Product_id, Color, Size, Quantity], (error, data) => {
+            const sql = `UPDATE order_item SET Color = ?, Size = ?  WHERE Product_id = ?`;
+            connection.query(sql, [Product_id, Color, Size], (error, data) => {
                 if (error) {
                     console.log(error);
                     res.status(500).json({ error });

@@ -103,7 +103,6 @@ const Order = () => {
             const data = await axios.get(`${baseUrl}/wish`, {
                 headers: { Authorization: localStorage.getItem("auth") },
             });
-            console.log(data);
             setOrder(data.data);
         } catch (err) {
             console.error(err);

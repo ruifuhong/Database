@@ -66,18 +66,10 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
                 {order.Product_id}
             </td>
             <td>
-                <select onChange={(e) => updateWishCar({ Color: e.target.value })} value={orderInfo.Color || ""}>
-                    {colors.map((item, index) => (
-                        <option key={index}>{item}</option>
-                    ))}
-                </select>
+                {order.Color}
             </td>
             <td>
-                <select onChange={(e) => updateWishCar({ Size: e.target.value })} value={orderInfo.Size || ""}>
-                    {sizes.map((item, index) => (
-                        <option key={index}>{item}</option>
-                    ))}
-                </select>
+                {order.Size}
             </td>
             <td>{order.Quantity}</td>
             <td>{order.Price}</td>
@@ -134,10 +126,7 @@ const Cart = () => {
             params: category ? { category } : {},
             headers: { Authorization: localStorage.getItem("auth") },
           });
-    
-          console.log("data.data[0]", data.data[0]);
           setMember(data.data[0].Username);
-          console.log(data.data);
         } catch (err) {
           alert(err?.response?.data?.error || "ERROR");
         }
@@ -186,7 +175,7 @@ const Cart = () => {
                         <tr>
                             <th>編號</th>
                             <th>商品名稱</th>
-                            <th>Product_ID</th>
+                            <th>商品ID</th>
                             <th>顏色</th>
                             <th>尺寸</th>
                             <th>數量</th>

@@ -224,7 +224,7 @@ const ProductShow = () => {
               type="number"
               id="quantity-input"
               value={quantity}
-              min="１"
+              min={1}
               onChange={handleQuantityChange}
             />
           </div>
