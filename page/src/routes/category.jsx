@@ -6,6 +6,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const Categories = () => {
     const [product, setProduct] = useState([]);
     const [userData, setUserData] = useState({});
+    const [isLoggedIn, setIsLoggedIn] = useState(false); // 添加 isLoggedIn 状态变量
 
     const navigate = useNavigate();
     const getProduct = async (category) => {
@@ -22,15 +23,17 @@ const Categories = () => {
 
     const fetchData = async () => {
         try {
-          const response = await axios.get(`${baseUrl}/username`, {
-            headers: { Authorization: localStorage.getItem("auth") },
-          });
-          setUserData(response.data);
+            const response = await axios.get(`${baseUrl}/username`, {
+                headers: { Authorization: localStorage.getItem("auth") },
+            });
+            setUserData(response.data);
+            setIsLoggedIn(true);
         } catch (error) {
-          console.error(error);
+            console.error(error);
+            setIsLoggedIn(false);
         }
-      };
-      
+    };
+
 
     const addProduct = async (Product_id, Category) => {
         try {
@@ -49,7 +52,7 @@ const Categories = () => {
             alert(err?.response?.data?.error || "ERROR");
         }
     };
-
+    
     useEffect(() => {
         getProduct();
         fetchData();
@@ -65,12 +68,16 @@ const Categories = () => {
                 </div>
 
                 <div className="block_2">
-                    <a className="shop_record" href="#!">
-                        購買記錄
-                    </a>
-                    <a className="wish_list" href="" onClick={() => navigate("/order")}>
-                        願望清單
-                    </a>
+                    {isLoggedIn ? (
+                        <>
+                            <a className="shop_record" href="#!">
+                                購買記錄
+                            </a>
+                            <a className="wish_list" href="" onClick={() => navigate("/order")}>
+                                願望清單
+                            </a>
+                        </>
+                    ) : null}
                 </div>
             </div>
             <center>

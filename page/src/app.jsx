@@ -7,11 +7,24 @@ import Member from "./routes/member";
 import Product_show from "./routes/show_product";
 import Not_login from "./routes/not_login";
 
-import { Route, Routes, useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
+import { useEffect, useState } from "react"; // Import useState as well
 
 const App = () => {
+    const location = useLocation();
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        const auth = localStorage.getItem("auth");
+        setIsLoggedIn(!!auth); // 检查本地存储中是否存在认证信息
+    }, []);
+
+
+
+
+
+
     return (
         <>
             <nav className="navbar navbar-expand-lg navbar-light bg-light">
@@ -19,34 +32,52 @@ const App = () => {
                     <a className="navbar-brand" href="" onClick={() => navigate("/category")}>
                         Start Wu4Shan
                     </a>
-                    {window.location.pathname === "/category" || window.location.pathname === "/order" ? (
+                    {!isLoggedIn ? (
+                        // 用户未登录时显示的内容
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
-                            <button
-                                className="btn btn-outline-dark"
-                                type="submit"
-                                style={{ marginRight: "1rem" }}
-                                onClick={() => {
-                                    localStorage.removeItem("auth");
-                                    navigate("/login");
-                                }}>
-                                Log out
-                            </button>
-                            <button
-                                className="btn btn-outline-dark"
-                                type="submit"
-                                style={{ marginRight: "1rem" }}
-                                onClick={() => navigate("/member")}>
-                                user_page
-                            </button>
-                            <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/cart")}>
-                                <i className="bi-cart-fill me-1"></i>
-                                Cart
-                                <span className="badge bg-dark text-white ms-1 rounded-pill">0</span>
-                            </button>
+                            {location.pathname === "/category" || location.pathname === "/order" ? (
+                                <>
+                                    <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/login")}>
+                                        Log in
+                                    </button>
+                                </>
+                            ) : <></>}
                         </div>
                     ) : (
-                        <></>
+                        // 用户已登录时显示的内容
+                        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                            {location.pathname === "/category" || location.pathname === "/order" ? (
+                                <>
+                                    <button
+                                        className="btn btn-outline-dark"
+                                        type="submit"
+                                        style={{ marginRight: "1rem" }}
+                                        onClick={() => {
+                                            localStorage.removeItem("auth");
+                                            navigate("/login");
+                                        }}>
+                                        Log out
+                                    </button>
+                                    <button
+                                        className="btn btn-outline-dark"
+                                        type="submit"
+                                        style={{ marginRight: "1rem" }}
+                                        onClick={() => navigate("/member")}>
+                                        user_page
+                                    </button>
+                                    <button className="btn btn-outline-dark" type="submit" onClick={() => navigate("/cart")}>
+                                        <i className="bi-cart-fill me-1"></i>
+                                        Cart
+                                    </button>
+                                </>
+                            ) : <></>}
+
+
+                        </div>
+
                     )}
+
+
                 </div>
             </nav>
             <Routes>
