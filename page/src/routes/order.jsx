@@ -78,8 +78,9 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
                 </select>
             </td>
             <td>{order.Price}</td>
+            <td><p style={{ cursor: "pointer", margin: 0, padding: 0 }}>+</p></td>
             <td>
-                <a onClick={() => deleteWishCar(order.Product_id)}>
+                <a style={{ cursor: "pointer" }} onClick={() => deleteWishCar(order.Product_id)}>
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
                         width="25"
@@ -144,6 +145,7 @@ const Order = () => {
                             <th>顏色</th>
                             <th>尺寸</th>
                             <th>價格</th>
+                            <th>加入購物車</th>
                             <th>刪除</th>
                         </tr>
                     </thead>

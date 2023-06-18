@@ -74,7 +74,7 @@ const OrderItems = ({ index, order, deleteWishCar,bulidorderlist }) => {
             <td>{order.Quantity}</td>
             <td>{order.Price}</td>
             <td>
-                <a onClick={() => deleteWishCar(order.Product_id)}>
+                <a style={{ cursor: "pointer" }} onClick={() => deleteWishCar(order.Product_id)}>
                     <img
                         src="https://cdn-icons-png.flaticon.com/512/1214/1214428.png"
                         width="25"
