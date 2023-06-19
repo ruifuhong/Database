@@ -6,7 +6,19 @@ module.exports = (router) => {
         console.log("進入customer");
         //console.log(req.headers);
         const Customer = verify(req);
-        if (Customer === false) return res.status(500).json({ error: "你沒有登錄" });
+        const url_pass = req.headers['x-referer']
+        if (Customer === false  )  {
+            if(url_pass.startsWith('show_product')){
+                
+                return
+            }
+            else{
+                res.status(500).json({ error: "你沒有登錄" });
+                return
+
+            }
+            
+        }
         try {
             const sql = `SELECT * FROM final.customer WHERE username = '${Customer}'`;
             connection.query(sql, (error, data) => {
