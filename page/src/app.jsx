@@ -6,6 +6,7 @@ import SingUp from "./routes/signup";
 import Member from "./routes/member";
 import Product_show from "./routes/show_product";
 import Not_login from "./routes/not_login";
+import PurchaseHistory from "./routes/purchase_history";
 
 import { Route, Routes, useNavigate, useLocation } from "react-router-dom";
 import { useEffect, useState } from "react"; // Import useState as well
@@ -90,8 +91,13 @@ const App = () => {
                 <Route path="/show_product/*" element={<Product_show />} />
                 <Route path="/not_login/*" element={<Not_login />} />
                 <Route path="/*" element={<Login />} />
+                <Route path="/purchase_history" element={<PurchaseHistory />} />
             </Routes>
+<<<<<<< HEAD
+            <footer className="bg-light text-center py-3 fixed-bottom">
+=======
             <footer className="bg-light text-center py-3 footer-fixed">
+>>>>>>> master
                 <div className="container">
                     <span className="text-muted">版權聲明 &copy; 2023</span>
                 </div>
