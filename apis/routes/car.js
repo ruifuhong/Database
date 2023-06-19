@@ -254,7 +254,7 @@ module.exports = (router) => {
       
               // 在 order_item 表格中查詢指定的訂單項目記錄
               const sql = `
-                SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price
+                SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price, order_item.Category
                 FROM order_item
                 WHERE order_item.order_id = '${order_id}'
               `;

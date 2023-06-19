@@ -140,7 +140,7 @@ const Cart = () => {
               color: order.Color,
               size: order.Size,
               purchase_date: new Date().toISOString().substring(0, 10),
-              category: "MEN",
+              category: order.Category,
             };
           });
         
