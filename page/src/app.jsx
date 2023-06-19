@@ -94,6 +94,7 @@ const App = () => {
                 <Route path="/purchase_history" element={<PurchaseHistory />} />
             </Routes>
             <footer className="bg-light text-center py-3 fixed-bottom">
+
                 <div className="container">
                     <span className="text-muted">版權聲明 &copy; 2023</span>
                 </div>
