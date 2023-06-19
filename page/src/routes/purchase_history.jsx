@@ -39,12 +39,11 @@ const PurchaseHistory = () => {
           <thead>
             <tr>
               <th>編號</th>
-              {/* <th>買家</th> */}
               <th>商品名稱</th>
               <th>Product_ID</th>
               <th>顏色</th>
               <th>尺寸</th>
-              <th>價格</th>
+              {/* <th>價格</th> */}
               <th>購買日期</th>
             </tr>
           </thead>
@@ -52,12 +51,11 @@ const PurchaseHistory = () => {
             {purchases.map((order, index) => (
               <tr key={index}>
                 <td>{index + 1}</td>
-                {/* <td>{order.Customer}</td> */}
                 <td>{order.Product_name}</td>
                 <td>{order.Product_id}</td>
                 <td>{order.Color}</td>
                 <td>{order.Size}</td>
-                <td>{order.Price}</td>
+                {/* <td>{order.Price}</td> */}
                 <td>{order.Purchase_date && new Date(order.Purchase_date).toLocaleDateString()}</td>
               </tr>
             ))}
