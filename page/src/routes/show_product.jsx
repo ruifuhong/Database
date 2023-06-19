@@ -20,11 +20,11 @@ const ProductShow = () => {
       let data = await axios.get(`${baseUrl}/customer`, {
         params: category ? { category } : {},
         headers: { Authorization: localStorage.getItem("auth") },
+        "X-Referer": window.location.pathname, // 添加自定义请求头字段
       });
       setMember(data.data[0].Username);
     } catch (err) {
-      window.location.href = "/not_login";
-      alert(err?.response?.data?.error || "ERROR");
+      //alert(err?.response?.data?.error || "ERROR");
     }
   };
 
@@ -79,7 +79,10 @@ const ProductShow = () => {
       alert("Add to wishlist successful");
     } catch (err) {
       console.error("Add to wishlist error:", err);
-      alert(err?.response?.data?.error || "ERROR");
+      alert(err?.response?.data?.error || "請登錄");
+      if (err.response.data.redirectUrl) {
+        window.location.href = err.response.data.redirectUrl;
+      }
     }
   };
 
@@ -114,7 +117,10 @@ const ProductShow = () => {
       });
       alert("cart Success");
     } catch (err) {
-      alert(err?.response?.data?.error || "ERROR");
+      alert(err?.response?.data?.error || "請登錄");
+      if (err.response.data.redirectUrl) {
+        window.location.href = err.response.data.redirectUrl;
+      }
     }
   };
 
@@ -182,7 +188,7 @@ const ProductShow = () => {
           <br/>
           <div className="product-id">ID : {extractProductId()}</div>
           <div className="product-color">
-            <label htmlFor="color-select">Color : </label>
+            <label htmlFor="color-select">顏色：</label>
             <select id="color-select" value={selectedColor} onChange={handleColorChange}>
             {colorOptions.map((color, index) => (
               <option key={index} value={color}>
@@ -192,7 +198,7 @@ const ProductShow = () => {
           </select>
           </div>
           <div className="product-size">
-            <label htmlFor="size-select">Size : </label>
+            <label htmlFor="size-select">尺寸：</label>
             <select id="size-select" value={selectedSize} onChange={handleSizeChange}>
             {sizeOptions.map((size, index) => (
               <option key={index} value={size}>
@@ -203,7 +209,7 @@ const ProductShow = () => {
           </div>
           <br/>
           <div className="product-price">
-            Total Price : ${product.Price * quantity}
+            總金額：${product.Price * quantity}
           </div>
         </div>
       </div>
@@ -214,12 +220,12 @@ const ProductShow = () => {
               className="add-to-wishlist-button"
               onClick={addToWishList}
             >
-              Add to Wishlist
+              加到願望清單
             </button>
           </div>
           <div className="quantity-container">
             <div className="quantity-label-container">
-              <label htmlFor="quantity-input">Quantity:</label>
+              <label htmlFor="quantity-input">數量：</label>
             </div>
             <input
               type="number"
@@ -231,7 +237,7 @@ const ProductShow = () => {
           </div>
           <div className="cart-container">
             <button className="add-to-cart-button" onClick={addProduct}>
-              Add to Cart
+              加到購物車
             </button>
           </div>
         </div>
