@@ -40,7 +40,7 @@ const PurchaseHistory = () => {
             <tr>
               <th>編號</th>
               <th>商品名稱</th>
-              <th>Product_ID</th>
+              <th>商品ID</th>
               <th>顏色</th>
               <th>尺寸</th>
               {/* <th>價格</th> */}
