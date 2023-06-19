@@ -188,7 +188,7 @@ const ProductShow = () => {
           <br/>
           <div className="product-id">ID : {extractProductId()}</div>
           <div className="product-color">
-            <label htmlFor="color-select">Color : </label>
+            <label htmlFor="color-select">顏色：</label>
             <select id="color-select" value={selectedColor} onChange={handleColorChange}>
             {colorOptions.map((color, index) => (
               <option key={index} value={color}>
@@ -198,7 +198,7 @@ const ProductShow = () => {
           </select>
           </div>
           <div className="product-size">
-            <label htmlFor="size-select">Size : </label>
+            <label htmlFor="size-select">尺寸：</label>
             <select id="size-select" value={selectedSize} onChange={handleSizeChange}>
             {sizeOptions.map((size, index) => (
               <option key={index} value={size}>
@@ -209,7 +209,7 @@ const ProductShow = () => {
           </div>
           <br/>
           <div className="product-price">
-            Total Price : ${product.Price * quantity}
+            總金額：${product.Price * quantity}
           </div>
         </div>
       </div>
@@ -220,12 +220,12 @@ const ProductShow = () => {
               className="add-to-wishlist-button"
               onClick={addToWishList}
             >
-              Add to Wishlist
+              加到願望清單
             </button>
           </div>
           <div className="quantity-container">
             <div className="quantity-label-container">
-              <label htmlFor="quantity-input">Quantity:</label>
+              <label htmlFor="quantity-input">數量：</label>
             </div>
             <input
               type="number"
@@ -237,7 +237,7 @@ const ProductShow = () => {
           </div>
           <div className="cart-container">
             <button className="add-to-cart-button" onClick={addProduct}>
-              Add to Cart
+              加到購物車
             </button>
           </div>
         </div>
