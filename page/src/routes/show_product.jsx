@@ -23,7 +23,6 @@ const ProductShow = () => {
       });
       setMember(data.data[0].Username);
     } catch (err) {
-      window.location.href = "/not_login";
       alert(err?.response?.data?.error || "ERROR");
     }
   };
@@ -79,7 +78,10 @@ const ProductShow = () => {
       alert("Add to wishlist successful");
     } catch (err) {
       console.error("Add to wishlist error:", err);
-      alert(err?.response?.data?.error || "ERROR");
+      alert(err?.response?.data?.error || "請登錄");
+      if (err.response.data.redirectUrl) {
+        window.location.href = err.response.data.redirectUrl;
+      }
     }
   };
 
@@ -114,7 +116,10 @@ const ProductShow = () => {
       });
       alert("cart Success");
     } catch (err) {
-      alert(err?.response?.data?.error || "ERROR");
+      alert(err?.response?.data?.error || "請登錄");
+      if (err.response.data.redirectUrl) {
+        window.location.href = err.response.data.redirectUrl;
+      }
     }
   };
 

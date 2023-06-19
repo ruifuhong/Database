@@ -49,7 +49,7 @@ module.exports = (router) => {
     router.post("/wish", async (req, res) => {
         const Customer = verify(req);
         if (Customer === false) {
-            res.status(400).json({ error: "INVALID_USER" });
+            res.status(401).json({ redirectUrl: "/not_login" });
             return;
         }
         try {
@@ -148,7 +148,7 @@ module.exports = (router) => {
     router.post("/cart", async (req, res) => {
         const Customer = verify(req);
         if (Customer === false) {
-            res.status(400).json({ error: "INVALID_USER" });
+            res.status(401).json({ redirectUrl: "/not_login" });
             return;
         }
         try {

@@ -6,7 +6,7 @@ module.exports = (router) => {
         console.log("進入customer");
         //console.log(req.headers);
         const Customer = verify(req);
-        if (Customer === false) return res.status(500).json({ error: "INVALID_USER" });
+        if (Customer === false) return res.status(500).json({ error: "你沒有登錄" });
         try {
             const sql = `SELECT * FROM final.customer WHERE username = '${Customer}'`;
             connection.query(sql, (error, data) => {
