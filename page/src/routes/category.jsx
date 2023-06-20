@@ -34,24 +34,6 @@ const Categories = () => {
         }
     };
 
-    const addProduct = async (Product_id, Category) => {
-        try {
-            await axios.post(
-                `${baseUrl}/wish`,
-                {
-                    Product_id,
-                    Color: null,
-                    Size: null,
-                    Category,
-                },
-                { headers: { Authorization: localStorage.getItem("auth") } }
-            );
-            alert("Item Add Success");
-        } catch (err) {
-            alert(err?.response?.data?.error || "ERROR");
-        }
-    };
-    
     useEffect(() => {
         getProduct();
         fetchData();
@@ -102,14 +84,6 @@ const Categories = () => {
                         {product.map((item, index) => (
                             <div className="col mb-5" key={index}>
                                 <div className="card h-100">
-                                    <a
-                                        className="badge bg-dark text-white  position-absolute_1 btn "
-                                        onClick={() => {
-                                            addProduct(item.Product_id, item.Category);
-                                        }}
-                                        style={{ top: "0.5rem", left: "0.5rem" }}>
-                                        Add
-                                    </a>
                                     <img className="card-img-top" src={item.Image} alt="..." />
 
                                     <div className="card-body p-4">
