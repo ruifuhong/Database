@@ -74,9 +74,7 @@ const ProductShow = () => {
       await axios.post(`${baseUrl}/wish`, requestBody, {
         headers: { Authorization: localStorage.getItem("auth") },
       });
-
-      console.log("Add to wishlist successful");
-      alert("Add to wishlist successful");
+      alert("成功加入願望清單");
     } catch (err) {
       console.error("Add to wishlist error:", err);
       alert(err?.response?.data?.error || "請登錄");
@@ -115,7 +113,7 @@ const ProductShow = () => {
       await axios.post(`${baseUrl}/cart`, requestBody, {
         headers: { Authorization: localStorage.getItem("auth") },
       });
-      alert("cart Success");
+      alert("成功加入購物車");
     } catch (err) {
       alert(err?.response?.data?.error || "請登錄");
       if (err.response.data.redirectUrl) {

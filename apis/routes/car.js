@@ -31,7 +31,7 @@ module.exports = (router) => {
                 res.status(400).json({ error: "INVALID_USER" });
                 return;
             }
-            const sql = `SELECT wish_product.Product_id, wish_product.Color, wish_product.Size, product.Product_name, Price, Image FROM wish_product 
+            const sql = `SELECT wish_product.Product_id, wish_product.Color, wish_product.Size, product.Product_name,product.Category,  Price, Image FROM wish_product 
             JOIN product ON product.Product_id = wish_product.Product_id 
             WHERE Customer = '${Customer}'`;
             connection.query(sql, (error, data) => {
@@ -254,7 +254,7 @@ module.exports = (router) => {
       
               // 在 order_item 表格中查詢指定的訂單項目記錄
               const sql = `
-                SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price
+                SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price, order_item.Category
                 FROM order_item
                 WHERE order_item.order_id = '${order_id}'
               `;
@@ -401,7 +401,142 @@ module.exports = (router) => {
           res.status(500).send("Error occurred while purchasing the products");
         }
       });
+     
+      router.post("/putcart", async (req, res) => {
+        const Customer = verify(req);
+        if (Customer === false) {
+          res.status(400).json({ error: "INVALID_USER" });
+          return;
+        }
+        try {
+          const {
+            Item,
+            Product_id,
+            Color,
+            Size,
+            Category,
+            Quantity,
+            Price
+          } = req.body;
+          if (Customer === undefined)
+            return res.status(400).json({ error: "INVALID INPUT" });
       
+          const checkCustomerQuery = `SELECT order_id FROM orderlist WHERE customer = ?`;
+          connection.query(checkCustomerQuery, [Customer], (error, results) => {
+            if (error) {
+              console.log(error);
+              res.status(500).json({ error });
+            } else {
+              if (results.length === 0) {
+                // Customer does not exist in orderlist table, generate random order_id
+                const order_id = generateRandomString(15);
+                const insertQuery = `INSERT INTO orderlist (order_id, customer, total_price) VALUES (?, ?, ?)`;
+                connection.query(
+                  insertQuery,
+                  [order_id, Customer, Price],
+                  (error, data) => {
+                    if (error) {
+                      console.log(error);
+                      res.status(500).json({ error });
+                    } else {
+                      console.log(`Inserted order_id: ${order_id}`);
+                      insertOrderItem(
+                        res,
+                        order_id,
+                        Item,
+                        Product_id,
+                        Color,
+                        Size,
+                        Category,
+                        Quantity,
+                        Price
+                      );
+                    }
+                  }
+                );
+              } else {
+                const order_id = results[0].order_id;
+                console.log(`Existing order_id: ${order_id}`);
+                insertOrderItem(
+                  res,
+                  order_id,
+                  Item,
+                  Product_id,
+                  Color,
+                  Size,
+                  Category,
+                  Quantity,
+                  Price
+                );
+                const updateTotalPriceQuery = `UPDATE orderlist SET Total_price = (
+                    SELECT SUM(price)
+                    FROM order_item
+                    WHERE order_item.order_id = '${order_id}'
+                )
+                WHERE order_id = '${order_id}'
+                `;
+
+                connection.query(updateTotalPriceQuery, (error, data) => {
+                if (error) {
+                    console.log(error);
+                    res.status(500).json({ error });
+                } else {
+                    res.json(data);
+                }
+                });
+      
+                const checkDuplicateQuery = `SELECT * FROM order_item WHERE Product_id = ?`;
+                connection.query(checkDuplicateQuery, [Product_id], (error, results) => {
+                  if (error) {
+                    console.log(error);
+                    res.status(500).json({ error });
+                  } else {
+                    if (results.length > 0) {
+                      // Product_id already exists in order_item table
+                      return res.status(400).json({ error: "DUPLICATE_PRODUCT" });
+                    } else {
+                        const insertQuery = `INSERT INTO order_item (Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+                        connection.query(
+                          insertQuery,
+                          [Item, Product_id, Color, Size, Category, Quantity, Price],
+                          (error, data) => {
+                            if (error) {
+                              console.log(error);
+                              res.status(500).json({ error });
+                            } else {
+                              console.log(`Inserted Product_id: ${Product_id}`);
+
+                            
+                              const deleteWishProductQuery = `DELETE FROM final.wish_product WHERE  Customer = ? AND Product_id = ?`;
+                              connection.query(
+                                deleteWishProductQuery, [Customer,Product_id],
+                                (error, data) => {
+                                  if (error) {
+                                    console.log(error);
+                                    res.status(500).json({ error });
+                                  } else {
+                                    console.log(`Deleted wish_product Product_id: ${Product_id}`);
+                                    res.json(data);
+                                    // Continue with any further actions or response handling here
+                                  }
+                                }
+                              );
+                            }
+                          }
+                        );
+                        
+                    }
+                  }
+                });
+              }
+            }
+          });
+        } catch (e) {
+          res.status(500).send("Error occurred when creating the data");
+        }
+      });
+      
+    
       
       
 
