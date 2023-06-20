@@ -69,7 +69,7 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
           await axios.post(`${baseUrl}/putcart`, requestBody, {
             headers: { Authorization: localStorage.getItem("auth") },
           });
-          alert("cart Success");
+          alert("已加入至購物車");
         } catch (err) {
             console.log(err); // 輸出完整的錯誤訊息
             console.log(err.response); // 輸出回應物件 (response object)

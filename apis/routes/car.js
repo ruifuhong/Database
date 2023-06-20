@@ -495,35 +495,36 @@ module.exports = (router) => {
                       // Product_id already exists in order_item table
                       return res.status(400).json({ error: "DUPLICATE_PRODUCT" });
                     } else {
-                      const insertQuery = `INSERT INTO order_item (Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?)`;
-                      connection.query(
-                        insertQuery,
-                        [Item, Product_id, Color, Size, Category, Quantity, Price],
-                        (error, data) => {
-                          if (error) {
-                            console.log(error);
-                            res.status(500).json({ error });
-                          } else {
-                            console.log(`Inserted Product_id: ${Product_id}`);
+                        const insertQuery = `INSERT INTO order_item (Item, Product_id, Color, Size, Category, Quantity, Price) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+                        connection.query(
+                          insertQuery,
+                          [Item, Product_id, Color, Size, Category, Quantity, Price],
+                          (error, data) => {
+                            if (error) {
+                              console.log(error);
+                              res.status(500).json({ error });
+                            } else {
+                              console.log(`Inserted Product_id: ${Product_id}`);
 
-                            const deleteWishProductQuery = `DELETE FROM final.wish_product WHERE Product_id = ?`;
-                            connection.query(
-                              deleteWishProductQuery,
-                              [Product_id],
-                              (error, data) => {
-                                if (error) {
-                                  console.log(error);
-                                  res.status(500).json({ error });
-                                } else {
-                                  console.log(
-                                    `Deleted wish_product Product_id: ${Product_id}`
-                                  );
+                            
+                              const deleteWishProductQuery = `DELETE FROM final.wish_product WHERE  Customer = ? AND Product_id = ?`;
+                              connection.query(
+                                deleteWishProductQuery, [Customer,Product_id],
+                                (error, data) => {
+                                  if (error) {
+                                    console.log(error);
+                                    res.status(500).json({ error });
+                                  } else {
+                                    console.log(`Deleted wish_product Product_id: ${Product_id}`);
+                                    res.json(data);
+                                    // Continue with any further actions or response handling here
+                                  }
                                 }
-                              }
-                            );
+                              );
+                            }
                           }
-                        }
-                      );
+                        );
+                        
                     }
                   }
                 });
