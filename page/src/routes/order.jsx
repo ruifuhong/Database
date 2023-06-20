@@ -165,7 +165,7 @@ const Order = () => {
             params: { Product_id },
             headers: { Authorization: localStorage.getItem("auth") },
         });
-        alert("Product Deleted");
+        alert("商品已刪除");
         await getOrder();
     };
 
