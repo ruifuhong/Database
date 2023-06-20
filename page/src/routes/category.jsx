@@ -44,7 +44,7 @@ const Categories = () => {
             <div className="frame_1">
                 <div className="block_1">
                     <div className="Username">{userData.username && userData.username}</div>
-                    <div className="Username">Joined since: {userData.joined_since && new Date(userData.joined_since).toLocaleDateString()}</div>
+                    <div className="Username">{userData.joined_since && new Date(userData.joined_since).toLocaleDateString()}</div>
                 </div>
 
                 <div className="block_2">
