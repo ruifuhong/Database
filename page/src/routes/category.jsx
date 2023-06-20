@@ -6,7 +6,7 @@ const baseUrl = process.env.REACT_APP_BASE_URL;
 const Categories = () => {
     const [product, setProduct] = useState([]);
     const [userData, setUserData] = useState({});
-    const [isLoggedIn, setIsLoggedIn] = useState(false); // 添加 isLoggedIn 状态变量
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const navigate = useNavigate();
     const getProduct = async (category) => {
