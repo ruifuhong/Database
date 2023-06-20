@@ -1,16 +1,6 @@
 const connection = require("../db");
 const { verify } = require("../verify");
 
-// const checkWishProductDuplicate = async (Customer, Product_id) => {
-//     const sqlCommand = `SELECT * FROM wish_product WHERE Customer = ${Customer} AND Product_id = ${Product_id}`;
-//     try {
-//         const result = await connection.connectionPromise(sqlCommand);
-//         return result.length !== 0;
-//     } catch (err) {
-//         console.error(err);
-//         throw "SELECT_WISH_ERROR";
-//     }
-// };
 
 const checkCartDuplicate = async (Product_id) => {
     const sqlCommand = `SELECT * FROM order_item WHERE Product_id = ${Product_id}`;
@@ -67,7 +57,6 @@ module.exports = (router) => {
                     res.json(data);
                 }
             });
-            console.log("hello");
         } catch (e) {
             res.status(500).send("error occurred when creating the data");
         }
@@ -141,7 +130,6 @@ module.exports = (router) => {
           const randomIndex = Math.floor(Math.random() * characters.length);
           randomString += characters.charAt(randomIndex);
         }
-    
         return randomString;
       };
 
@@ -205,27 +193,6 @@ module.exports = (router) => {
     });
 
     
-    // router.get("/cart", (req, res) => {
-    //     try {
-    //         const Customer = verify(req);
-    //         if (Customer === false) {
-    //             res.status(400).json({ error: "INVALID_USER" });
-    //             return;
-    //         }
-    //         const sql = `SELECT  order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price  
-    //         FROM order_item
-    //         `;
-    //         connection.query(sql, (error, data) => {
-    //             if (error) {
-    //                 res.status(500).json({ error });
-    //             } else {
-    //                 res.json(data);
-    //             }
-    //         });
-    //     } catch (e) {
-    //         res.status(500).send("error occurred when getting the data");
-    //     }
-    // });
 
     router.get("/cart", (req, res) => {
         try {
@@ -235,7 +202,7 @@ module.exports = (router) => {
             return;
           }
       
-          // 直接使用指定 Customer 的 order_id
+
           const getOrderQuery = `
             SELECT order_id
             FROM orderlist 
@@ -252,7 +219,6 @@ module.exports = (router) => {
             } else {
               const order_id = results[0].order_id;
       
-              // 在 order_item 表格中查詢指定的訂單項目記錄
               const sql = `
                 SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price, order_item.Category
                 FROM order_item
@@ -535,9 +501,4 @@ module.exports = (router) => {
           res.status(500).send("Error occurred when creating the data");
         }
       });
-      
-    
-      
-      
-
 };

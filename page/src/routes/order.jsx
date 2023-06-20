@@ -72,9 +72,9 @@ const OrderItems = ({ index, order, deleteWishCar }) => {
           });
           alert("已加入至購物車");
         } catch (err) {
-            console.log(err); // 輸出完整的錯誤訊息
-            console.log(err.response); // 輸出回應物件 (response object)
-            console.log(err.response.data); // 輸出回應的資料 (response data)
+            console.log(err); 
+            console.log(err.response); 
+            console.log(err.response.data); 
             console.log(err?.response?.data?.error);
           alert(err?.response?.data?.error || "ERROR");
         }
@@ -183,7 +183,6 @@ const Order = () => {
                     </div>
                 </div>
             </header>
-
             <main>
                 <table>
                     <thead>

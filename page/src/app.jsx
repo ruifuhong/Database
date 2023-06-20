@@ -18,7 +18,7 @@ const App = () => {
 
     useEffect(() => {
         const auth = localStorage.getItem("auth");
-        setIsLoggedIn(!!auth); // 检查本地存储中是否存在认证信息
+        setIsLoggedIn(!!auth); 
     }, []);
 
 
@@ -34,7 +34,6 @@ const App = () => {
                         Start Wu4Shan
                     </a>
                     {!isLoggedIn ? (
-                        // 用户未登录时显示的内容
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             {location.pathname === "/category" || location.pathname === "/order" ? (
                                 <>
@@ -45,7 +44,6 @@ const App = () => {
                             ) : <></>}
                         </div>
                     ) : (
-                        // 用户已登录时显示的内容
                         <div className="collapse navbar-collapse" id="navbarSupportedContent">
                             {location.pathname === "/category" || location.pathname === "/order" ? (
                                 <>
@@ -72,13 +70,8 @@ const App = () => {
                                     </button>
                                 </>
                             ) : <></>}
-
-
                         </div>
-
                     )}
-
-
                 </div>
             </nav>
             <Routes>

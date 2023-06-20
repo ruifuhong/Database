@@ -152,7 +152,7 @@ const Cart = () => {
         
           try {
             await axios.post(`${baseUrl}/product_purchased`, requestBody);
-            alert("Product purchased successfully");
+            alert("購買成功");
             window.location.href = '/category';
           } catch (error) {
             alert(error?.response?.data?.error || "你的購物車內沒有東西");

@@ -33,7 +33,6 @@ const PurchaseHistory = () => {
           </div>
         </div>
       </header>
-
       <main>
         <table>
           <thead>
@@ -60,7 +59,6 @@ const PurchaseHistory = () => {
               </tr>
             ))}
 </tbody>
-
         </table>
       </main>
     </>

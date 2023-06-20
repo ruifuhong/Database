@@ -20,7 +20,7 @@ const ProductShow = () => {
       let data = await axios.get(`${baseUrl}/customer`, {
         params: category ? { category } : {},
         headers: { Authorization: localStorage.getItem("auth") },
-        "X-Referer": window.location.pathname, // 添加自定义请求头字段
+        "X-Referer": window.location.pathname, 
       });
       setMember(data.data[0].Username);
     } catch (err) {
@@ -32,7 +32,6 @@ const ProductShow = () => {
   const getItemInfo = async () => {
     try {
       const extractedProductId = extractProductId();
-
       const [colorInfo, sizeInfo] = await Promise.all([
         axios.get(`${baseUrl}/product/getcolor`, {
           params: { Product_id: Number(extractedProductId)},
@@ -169,7 +168,6 @@ const ProductShow = () => {
         </div>
       </div>
     </header>
-
     <div className="product-container">
       <div className="left-section">
         <div className="product-image">
