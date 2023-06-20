@@ -32,7 +32,6 @@ const ProductShow = () => {
   const getItemInfo = async () => {
     try {
       const extractedProductId = extractProductId();
-
       const [colorInfo, sizeInfo] = await Promise.all([
         axios.get(`${baseUrl}/product/getcolor`, {
           params: { Product_id: Number(extractedProductId)},
@@ -169,7 +168,6 @@ const ProductShow = () => {
         </div>
       </div>
     </header>
-
     <div className="product-container">
       <div className="left-section">
         <div className="product-image">

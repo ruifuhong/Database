@@ -5,7 +5,6 @@ const { verify } = require("../verify");
 
 module.exports = (router) => {
    
-
     router.post("/history", async (req, res) => {
         const Customer = verify(req);
         if (Customer === false) {
@@ -39,9 +38,7 @@ module.exports = (router) => {
                 res.status(400).json({ error: "INVALID_USER" });
                 return;
             }
-            //const sql = `SELECT * FROM final.product_purchased WHERE Customer = '${Customer}'`;
-
-            
+            //const sql = `SELECT * FROM final.product_purchased WHERE Customer = '${Customer}'`;   
             const sql = `SELECT product_purchased.Customer, product.Product_name ,product_purchased.Product_id, product_purchased.Color, product_purchased.Size, product.Price, product_purchased.Purchase_date
                         FROM  product_purchased
                         JOIN   product

@@ -183,7 +183,6 @@ const Order = () => {
                     </div>
                 </div>
             </header>
-
             <main>
                 <table>
                     <thead>

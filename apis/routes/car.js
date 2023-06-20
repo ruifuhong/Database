@@ -130,7 +130,6 @@ module.exports = (router) => {
           const randomIndex = Math.floor(Math.random() * characters.length);
           randomString += characters.charAt(randomIndex);
         }
-    
         return randomString;
       };
 
@@ -220,7 +219,6 @@ module.exports = (router) => {
             } else {
               const order_id = results[0].order_id;
       
-
               const sql = `
                 SELECT order_item.Product_id, order_item.Color, order_item.Size, order_item.Item, order_item.Quantity, order_item.Price, order_item.Category
                 FROM order_item
@@ -503,9 +501,4 @@ module.exports = (router) => {
           res.status(500).send("Error occurred when creating the data");
         }
       });
-      
-    
-      
-      
-
 };

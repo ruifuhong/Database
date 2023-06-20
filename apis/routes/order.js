@@ -3,7 +3,6 @@ const connection = require("../db");
 module.exports = (router) => {
     router.delete("/record/:productId", (req, res) => {
         const { productId } = req.body;
-
         try {
             const sql = `DELETE FROM trying WHERE Product_id = ?`;
             const values = productId;
@@ -24,7 +23,6 @@ module.exports = (router) => {
     router.patch("/order/:productId", (req, res) => {
         const { productId } = req.body;
         const { quantity } = req.body;
-
         try {
             const sql = `UPDATE trying SET Quantity = ? WHERE Product_id = ?`;
             const values = [quantity, productId];
@@ -41,6 +39,5 @@ module.exports = (router) => {
             return res.status(400).send("error occurred when updating the quantity");
         }
     });
-
     return router;
 };

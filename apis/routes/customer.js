@@ -8,8 +8,7 @@ module.exports = (router) => {
         const Customer = verify(req);
         const url_pass = req.headers['x-referer']
         if (Customer === false  )  {
-            if(url_pass.startsWith('show_product')){
-                
+            if(url_pass.startsWith('show_product')){  
                 return
             }
             else{

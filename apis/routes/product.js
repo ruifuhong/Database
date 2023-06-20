@@ -23,8 +23,6 @@ module.exports = (router) => {
         }
     });
 
-
-
     router.get("/product", async (req, res) => {
         let sqlCommand = "SELECT * FROM product";
         if (req.query.category) sqlCommand += ` where category = '${req.query.category}'`;
@@ -74,7 +72,6 @@ module.exports = (router) => {
         }
       });
       
-
     router.get("/product/color", async (req, res) => {
         try {
             let sqlCommand = `SELECT * FROM product_color where Product_id = ${req.query.Product_id}`;
@@ -133,8 +130,4 @@ module.exports = (router) => {
           res.status(500).send(" Error occurred when getting the data");
         }
       });
-
-
-
-    
 };

@@ -29,8 +29,6 @@ const NotLogin = () => {
       <p className="not-login-countdown">{countdown}秒後跳轉</p>
       <a href="/" className="not-login-link">手動跳轉</a>
     </div>
-    
-    
     </>
   );
 };

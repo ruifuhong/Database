@@ -34,7 +34,6 @@ const Categories = () => {
         }
     };
 
-
     const addProduct = async (Product_id, Category) => {
         try {
             await axios.post(
