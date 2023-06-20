@@ -116,7 +116,7 @@ module.exports = (router) => {
 
             connection.query(sql, (error, data) => {
                 if (error) {
-                    console.error(error); // 在控制台印出錯誤訊息
+                    console.error(error); 
                     res.status(500).json({ error });
                 } else if (data.length === 0) {
                     res.status(404).json({ error: "USER_NOT_FOUND" });
@@ -129,7 +129,7 @@ module.exports = (router) => {
                 }
             });
         } catch (e) {
-          console.error(e); // 在控制台印出錯誤訊息
+          console.error(e); 
           res.status(500).send(" Error occurred when getting the data");
         }
       });

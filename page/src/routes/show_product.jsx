@@ -20,7 +20,7 @@ const ProductShow = () => {
       let data = await axios.get(`${baseUrl}/customer`, {
         params: category ? { category } : {},
         headers: { Authorization: localStorage.getItem("auth") },
-        "X-Referer": window.location.pathname, // 添加自定义请求头字段
+        "X-Referer": window.location.pathname, 
       });
       setMember(data.data[0].Username);
     } catch (err) {

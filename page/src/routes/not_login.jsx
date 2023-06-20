@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
-import "../stylesheets/NotLogin.css"; // 导入自定义CSS文件
+import "../stylesheets/NotLogin.css"; 
 
 const NotLogin = () => {
   const navigate = useNavigate();
