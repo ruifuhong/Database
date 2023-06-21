@@ -89,9 +89,7 @@ const Categories = () => {
                                     <div className="card-body p-4">
                                         <div className="text-center">
                                             <h5 className="fw-bolder">{item.Product_name}</h5>
-                                            <h6 className="fw-bolder">商品id{item.Product_id}</h6>
-                                            <h6 className="fw-bolder">尺寸</h6>
-                                            <h6 className="fw-bolder">顏色</h6>
+                                            <h6 className="fw-bolder">商品ID：{item.Product_id}</h6>
                                             <h6 className="fw-bolder">價錢： {item.Price} 元</h6>
                                         </div>
                                     </div>
