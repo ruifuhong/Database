@@ -1,5 +1,5 @@
-# Wu4Shan 購物網 - 國立政治大學資訊科學系碩士班《資料庫系統》課程期末專案
-# Wu4Shan Shopping Website - Final Project of Database System
+# Wu4Shan 購物網 Wu4Shan Shopping Website
+##### 國立政治大學資訊科學系碩士班《資料庫系統》課程期末專案 Final Project of Database System
 
 ## **範例影片**
 #### 點擊圖片前往影片頁面，可開啟 cc 字幕
