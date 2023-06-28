@@ -4,7 +4,7 @@
 ### Wu4Shan
 
 ## **範例影片**
-<iframe width="560" height="315" src="https://www.youtube.com/embed/R_VLtVZxPIA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+[![IMAGE ALT TEXT HERE](https://static.coderbridge.com/img/juifuhung/3543115120874b35b067d4f9125b2b4a.png)](https://youtu.be/R_VLtVZxPIA)
 
 ## **題目說明**
 線上購物網站是一種透過互聯網平台提供商品和服務的商業模式。現在有許多知名的線上購物網站，以下是其中一些常見的網站:
