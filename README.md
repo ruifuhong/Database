@@ -4,6 +4,7 @@
 ### Wu4Shan
 
 ## **範例影片**
+#### 點擊圖片前往影片頁面，可開啟 cc 字幕
 [![IMAGE ALT TEXT HERE](https://static.coderbridge.com/img/juifuhung/3543115120874b35b067d4f9125b2b4a.png)](https://youtu.be/R_VLtVZxPIA)
 
 ## **題目說明**
