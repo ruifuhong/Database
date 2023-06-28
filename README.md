@@ -3,7 +3,7 @@
 
 ## **範例影片**
 #### 點擊圖片前往影片頁面，可開啟 cc 字幕
-[![IMAGE ALT TEXT HERE](https://static.coderbridge.com/img/juifuhung/3543115120874b35b067d4f9125b2b4a.png)](https://youtu.be/R_VLtVZxPIA)
+[![IMAGE ALT TEXT HERE](https://static.coderbridge.com/img/juifuhung/d41847566aa74bbbaad786228b012aff.jpg)](https://youtu.be/R_VLtVZxPIA)
 
 ## **題目說明**
 線上購物網站是一種透過互聯網平台提供商品和服務的商業模式。現在有許多知名的線上購物網站，以下是其中一些常見的網站:
